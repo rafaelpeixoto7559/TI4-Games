@@ -1,4 +1,4 @@
-// UnionFind.cs
+// Classe de União-Find para o Algoritmo de Kruskal
 public class UnionFind
 {
     private int[] parent;
@@ -8,7 +8,6 @@ public class UnionFind
     {
         parent = new int[size];
         rank = new int[size];
-
         for(int i = 0; i < size; i++)
         {
             parent[i] = i;
@@ -25,24 +24,25 @@ public class UnionFind
 
     public void Union(int x, int y)
     {
-        int rootX = Find(x);
-        int rootY = Find(y);
-        if(rootX != rootY)
+        int xRoot = Find(x);
+        int yRoot = Find(y);
+
+        if(xRoot == yRoot)
+            return;
+
+        // Union by rank
+        if(rank[xRoot] < rank[yRoot])
         {
-            // Union by rank
-            if(rank[rootX] < rank[rootY])
-            {
-                parent[rootX] = rootY;
-            }
-            else if(rank[rootX] > rank[rootY])
-            {
-                parent[rootY] = rootX;
-            }
-            else
-            {
-                parent[rootY] = rootX;
-                rank[rootX]++;
-            }
+            parent[xRoot] = yRoot;
+        }
+        else if(rank[xRoot] > rank[yRoot])
+        {
+            parent[yRoot] = xRoot;
+        }
+        else
+        {
+            parent[yRoot] = xRoot;
+            rank[xRoot]++;
         }
     }
 }

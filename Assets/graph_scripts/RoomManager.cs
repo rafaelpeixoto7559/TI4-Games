@@ -1,6 +1,8 @@
+// RoomManager.cs
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 public class RoomManager : MonoBehaviour
 {
@@ -21,7 +23,7 @@ public class RoomManager : MonoBehaviour
     public float roomSpacing = 20f; // Espaçamento entre as salas
 
     [Header("Graph Settings")]
-    public int numberOfRooms = 10;  // Número total de salas
+    public int numberOfRooms = 3;  // Número total de salas (alterado para 3 conforme seu exemplo)
     public int maxDegree = 4; // Grau máximo por vértice
 
     [Header("Camera Settings")]
@@ -65,11 +67,29 @@ public class RoomManager : MonoBehaviour
         graph = new Graph(numberOfRooms);
         graph.GenerateConnectedGraph();
 
-        // Instanciar as salas com base no grafo gerado
+        // Obter a representação DOT como string
+        string dot = graph.ToDotFormat();
+        Debug.Log("Representação DOT do Grafo:\n" + dot);
+
+        // Opcional: Exportar para um arquivo DOT
+        string caminhoDoArquivo = Path.Combine(Application.dataPath, "grafo.dot");
+        graph.ExportToDotFile(caminhoDoArquivo);
+
+        // Instanciar as salas com base no grafo gerado e rotacioná-las
         GenerateRooms();
 
         // Conectar as salas com portas
         ConnectRooms();
+
+        // Verificar se todas as portas estão alinhadas corretamente
+        if (VerifyAllDoorsAligned())
+        {
+            Debug.Log("Todas as portas estão alinhadas corretamente.");
+        }
+        else
+        {
+            Debug.LogError("Há portas desalinhadas nas salas. Verifique a lógica de rotacionamento.");
+        }
 
         // Ativar apenas a primeira sala inicialmente
         ShowRoom(0);  // Começa na sala de índice 0
@@ -115,21 +135,11 @@ public class RoomManager : MonoBehaviour
             else
                 roomPrefabToUse = room3Prefab;
 
-            // Calcula a posição padronizada para a sala
-            // Aqui, posicionamos as salas em um grid 5x2. Ajuste conforme necessário.
-            Vector3 roomPosition = roomSpawnBasePosition + new Vector3((i % 5) * roomSpacing, (i / 5) * roomSpacing, 0);
-
-            GameObject room = Instantiate(roomPrefabToUse, roomPosition, Quaternion.identity);
+            // Instancia a sala
+            GameObject room = Instantiate(roomPrefabToUse, roomSpawnBasePosition, Quaternion.identity);
             room.name = "Room " + i;
             room.SetActive(false);  // Desativa a sala inicialmente
             rooms.Add(room);
-
-            // Assign roomManager to all doors in the room
-            DoorTrigger[] doors = room.GetComponentsInChildren<DoorTrigger>();
-            foreach(var door in doors)
-            {
-                door.roomManager = this;
-            }
 
             // Inicializa o contador de portas para a sala
             roomDoorCounters[i] = 0;
@@ -153,7 +163,24 @@ public class RoomManager : MonoBehaviour
                 DoorTrigger doorA = doorsA[roomDoorCounters[edge.Source]];
                 DoorTrigger doorB = doorsB[roomDoorCounters[edge.Destination]];
 
-                // Conecta doorA a doorB
+                // Determinar a direção correta para rotacionar as salas
+                DoorDirection directionAOriginal = GetOriginalDoorDirection(edge.Source, roomDoorCounters[edge.Source]);
+                DoorDirection directionBOriginal = GetOriginalDoorDirection(edge.Destination, roomDoorCounters[edge.Destination]);
+
+                // Calcular a rotação necessária para alinhar as portas
+                // A porta da sala A deve estar na direção oposta à da sala B
+                int rotationA = CalculateRotation(directionAOriginal, DoorDirection.East); // Escolha uma direção base para Sala A
+                int rotationB = CalculateRotation(directionBOriginal, DirectionHelper.GetOppositeDirection(DoorDirection.East));
+
+                // Aplicar rotações
+                RotateRoom(edge.Source, rotationA);
+                RotateRoom(edge.Destination, rotationB);
+
+                // Atribuir o RoomManager às portas agora rotacionadas
+                doorA.roomManager = this;
+                doorB.roomManager = this;
+
+                // Definir a sala conectada nas portas
                 doorA.connectedRoomIndex = edge.Destination;
                 doorB.connectedRoomIndex = edge.Source;
 
@@ -168,6 +195,75 @@ public class RoomManager : MonoBehaviour
                 Debug.LogWarning($"Salas {edge.Source} ou {edge.Destination} não possuem portas suficientes para conectar.");
             }
         }
+    }
+
+    /// <summary>
+    /// Obtém a direção original da porta baseado no índice da porta na sala.
+    /// </summary>
+    /// <param name="roomIndex">Índice da sala.</param>
+    /// <param name="doorIndex">Índice da porta na sala.</param>
+    /// <returns>Direção original da porta.</returns>
+    private DoorDirection GetOriginalDoorDirection(int roomIndex, int doorIndex)
+    {
+        // Sala1: 1 porta (East)
+        // Sala2: 2 portas (East, West)
+        // Sala3: 3 portas (East, West, South)
+
+        if (graph.adjacencyList[roomIndex].Count == 1)
+        {
+            return DoorDirection.East;
+        }
+        else if (graph.adjacencyList[roomIndex].Count == 2)
+        {
+            if (doorIndex == 0)
+                return DoorDirection.East;
+            else
+                return DoorDirection.West;
+        }
+        else if (graph.adjacencyList[roomIndex].Count == 3)
+        {
+            if (doorIndex == 0)
+                return DoorDirection.East;
+            else if (doorIndex == 1)
+                return DoorDirection.West;
+            else
+                return DoorDirection.South;
+        }
+        else
+        {
+            return DoorDirection.North; // Default ou para casos não previstos
+        }
+    }
+
+    /// <summary>
+    /// Calcula a rotação necessária para alinhar uma direção base com uma direção alvo.
+    /// </summary>
+    /// <param name="baseDirection">Direção original.</param>
+    /// <param name="targetDirection">Direção alvo após rotação.</param>
+    /// <returns>Número de rotações de 90 graus necessárias.</returns>
+    private int CalculateRotation(DoorDirection baseDirection, DoorDirection targetDirection)
+    {
+        int rotationSteps = 0;
+        DoorDirection currentDirection = baseDirection;
+
+        while (currentDirection != targetDirection && rotationSteps < 4)
+        {
+            currentDirection = DirectionHelper.RotateDirection(currentDirection, 1);
+            rotationSteps++;
+        }
+
+        return rotationSteps % 4;
+    }
+
+    /// <summary>
+    /// Rotaciona uma sala em passos de 90 graus.
+    /// </summary>
+    /// <param name="roomIndex">Índice da sala a ser rotacionada.</param>
+    /// <param name="rotationSteps">Número de rotações de 90 graus (0-3).</param>
+    private void RotateRoom(int roomIndex, int rotationSteps)
+    {
+        GameObject room = rooms[roomIndex];
+        room.transform.Rotate(0, 0, rotationSteps * 90);
     }
 
     // Método para trocar de sala
@@ -250,6 +346,52 @@ public class RoomManager : MonoBehaviour
         GameObject room = rooms[roomIndex];
         // Supondo que o player deve spawnar no centro da sala com um offset específico
         return room.transform.position + playerSpawnOffset;
+    }
+
+    // Método para verificar se todas as portas estão alinhadas corretamente
+    bool VerifyAllDoorsAligned()
+    {
+        bool allAligned = true;
+
+        foreach(var edge in graph.Edges)
+        {
+            int roomAIndex = edge.Source;
+            int roomBIndex = edge.Destination;
+
+            DoorTrigger doorA = rooms[roomAIndex].GetComponentsInChildren<DoorTrigger>()[roomDoorCounters[roomAIndex]-1];
+            DoorTrigger doorB = rooms[roomBIndex].GetComponentsInChildren<DoorTrigger>()[roomDoorCounters[roomBIndex]-1];
+
+            // Obter a direção atual das portas após rotação
+            DoorDirection directionA = GetCurrentDoorDirection(roomAIndex, roomDoorCounters[roomAIndex]-1);
+            DoorDirection directionB = GetCurrentDoorDirection(roomBIndex, roomDoorCounters[roomBIndex]-1);
+
+            // Verificar se as direções são opostas
+            if(directionA != DirectionHelper.GetOppositeDirection(directionB))
+            {
+                Debug.LogError($"Portas entre Sala {roomAIndex} e Sala {roomBIndex} não estão alinhadas.");
+                allAligned = false;
+            }
+        }
+
+        if(!allAligned)
+        {
+            Debug.LogError("Há portas desalinhadas nas salas. Verifique a lógica de rotacionamento.");
+        }
+
+        return allAligned;
+    }
+
+    /// <summary>
+    /// Obtém a direção atual da porta baseado na rotação da sala.
+    /// </summary>
+    /// <param name="roomIndex">Índice da sala.</param>
+    /// <param name="doorIndex">Índice da porta na sala.</param>
+    /// <returns>Direção atual da porta após rotação.</returns>
+    private DoorDirection GetCurrentDoorDirection(int roomIndex, int doorIndex)
+    {
+        DoorDirection originalDirection = GetOriginalDoorDirection(roomIndex, doorIndex);
+        int rotationSteps = graph.roomRotations[roomIndex];
+        return DirectionHelper.RotateDirection(originalDirection, rotationSteps);
     }
 
     // Método para imprimir o grafo no Console para depuração
