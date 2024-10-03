@@ -1,0 +1,3 @@
+repository "TI4-Games@RafaelPeixoto@cloud"
+  path "/"
+    smartbranch "/main"
