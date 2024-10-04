@@ -21128,7 +21128,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomManager: {fileID: 0}
   connectedRoomIndex: 0
-  currentDirection: 0
+  doorDirection: 1
+  currentDirection: 1
 --- !u!1 &5994954086922193401
 GameObject:
   m_ObjectHideFlags: 0

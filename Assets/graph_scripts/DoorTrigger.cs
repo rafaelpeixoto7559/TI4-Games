@@ -1,35 +1,50 @@
-// DoorTrigger.cs
 using UnityEngine;
 
 public class DoorTrigger : MonoBehaviour
 {
-    public RoomManager roomManager; // Referência ao RoomManager
-    public int connectedRoomIndex;  // Índice da sala para a qual essa porta leva
+    public int connectedRoomIndex = -1;  // Index of the room this door leads to
 
-    // Direção atual da porta após rotação
+    // Original door direction before rotation
+    public DoorDirection doorDirection;
+
+
     public DoorDirection currentDirection;
 
-    // Quando o jogador entrar no colisor da porta
-    void OnTriggerEnter2D(Collider2D other)
+    private RoomManager roomManager;
+
+    void Awake()
     {
-        if (other.CompareTag("Player")) // Verifica se é o jogador
+        // Assign the RoomManager instance
+        roomManager = RoomManager.Instance;
+        if (roomManager == null)
         {
-            Debug.Log($"Player entrou na porta para a Sala {connectedRoomIndex}");
-            if (roomManager != null)
+            Debug.LogError("RoomManager instance not found in DoorTrigger.");
+        }
+
+        // Initially, set currentDirection to doorDirection
+        currentDirection = doorDirection;
+    }
+
+     private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            if (connectedRoomIndex != -1)
             {
-                roomManager.GoToRoom(connectedRoomIndex); // Chama o RoomManager para trocar de sala
+                Debug.Log($"Player entered the door to Room {connectedRoomIndex}");
+                RoomManager.Instance.GoToRoom(connectedRoomIndex);
             }
             else
             {
-                Debug.LogError("RoomManager não está atribuído na porta.");
+                Debug.LogError("Door has no connected room assigned.");
             }
         }
     }
 
-    // Método para desenhar Gizmos para visualizar a porta no Editor
+    // Method to draw Gizmos to visualize the door in the Editor
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(transform.position, new Vector3(1, 2, 1)); // Representação simples da porta
+        Gizmos.DrawWireCube(transform.position, new Vector3(1, 2, 1)); // Simple representation of the door
     }
 }

@@ -27614,7 +27614,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomManager: {fileID: 0}
   connectedRoomIndex: 0
-  currentDirection: 0
+  doorDirection: 3
+  currentDirection: 3
 --- !u!61 &3805698032604442508
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -27738,7 +27739,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomManager: {fileID: 0}
   connectedRoomIndex: 0
-  currentDirection: 0
+  doorDirection: 1
+  currentDirection: 1
 --- !u!61 &298537220646632601
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -28434,7 +28436,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomManager: {fileID: 0}
   connectedRoomIndex: 0
-  currentDirection: 0
+  doorDirection: 2
+  currentDirection: 2
 --- !u!61 &686283673135963406
 BoxCollider2D:
   m_ObjectHideFlags: 0

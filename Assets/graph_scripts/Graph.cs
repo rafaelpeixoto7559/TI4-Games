@@ -1,4 +1,3 @@
-// Graph.cs
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
@@ -16,20 +15,14 @@ public class Graph
     public int Vertices;
     public List<Edge> Edges;
     public Dictionary<int, List<int>> adjacencyList;
-    public List<int> roomMaxDegrees; // Lista para armazenar o grau máximo de cada sala
-
+    public List<int> roomMaxDegrees;
     private System.Random random;
-
-    // Rotação atribuída a cada sala (em passos de 90°: 0, 1, 2, 3 correspondem a 0°, 90°, 180°, 270°)
     public int[] roomRotations;
-
-    // Tipos de sala
     public RoomType[] roomTypes;
-
-    // Tracking used doors per room
     private List<DoorDirection>[] roomUsedDoors;
+    private GameObject[] rooms;
 
-    public Graph(int vertices)
+    public Graph(int vertices, GameObject[] roomInstances)
     {
         Vertices = vertices;
         Edges = new List<Edge>();
@@ -39,14 +32,13 @@ public class Graph
         roomRotations = new int[vertices];
         roomTypes = new RoomType[vertices];
         roomUsedDoors = new List<DoorDirection>[vertices];
+        rooms = roomInstances;
 
         for (int i = 0; i < vertices; i++)
         {
             adjacencyList[i] = new List<int>();
             roomUsedDoors[i] = new List<DoorDirection>();
 
-            // Assign room type based on index, por exemplo:
-            // Cycle through Sala1, Sala2, Sala3
             if (i % 3 == 0)
             {
                 roomTypes[i] = RoomType.Sala1;
@@ -63,31 +55,21 @@ public class Graph
                 roomMaxDegrees.Add(3);
             }
 
-            roomRotations[i] = -1; // -1 indica que a rotação ainda não foi atribuída
+            roomRotations[i] = -1;
         }
     }
 
-    /// <summary>
-    /// Gera uma árvore geradora mínima conectada com restrição de grau máximo baseado no tipo de sala.
-    /// </summary>
     public void GenerateConnectedGraph()
     {
-        int maxRetries = 100; // Número máximo de tentativas para gerar uma árvore geradora válida
+        int maxRetries = 100;
         for (int attempt = 0; attempt < maxRetries; attempt++)
         {
-            // Limpar o grafo atual
             Edges.Clear();
             foreach (var key in adjacencyList.Keys)
             {
                 adjacencyList[key].Clear();
             }
 
-        for (int i = 0; i < roomUsedDoors.Length; i++)
-        {
-            roomUsedDoors[i].Clear();
-        }
-
-            // Gerar todas as possíveis arestas sem duplicatas e sem laços
             List<Edge> allPossibleEdges = new List<Edge>();
             for (int i = 0; i < Vertices; i++)
             {
@@ -97,7 +79,6 @@ public class Graph
                 }
             }
 
-            // Embaralhar as arestas para randomização
             Shuffle(allPossibleEdges);
 
             UnionFind uf = new UnionFind(Vertices);
@@ -105,7 +86,6 @@ public class Graph
             int attemptsCount = 0;
             int maxAttempts = 1000;
 
-            // Primeira etapa: Construir a árvore geradora
             foreach (var edge in allPossibleEdges)
             {
                 if (spanningTree.Count == Vertices - 1)
@@ -113,14 +93,13 @@ public class Graph
 
                 if (attemptsCount >= maxAttempts)
                 {
-                    Debug.LogWarning($"Tentativa {attempt + 1}: Número máximo de tentativas alcançado durante a construção da árvore geradora.");
+                    Debug.LogWarning($"Attempt {attempt + 1}: Maximum attempts reached during spanning tree construction.");
                     break;
                 }
 
                 int src = edge.Source;
                 int dest = edge.Destination;
 
-                // Verifica se adicionando a aresta não cria um ciclo e se ambos os vértices têm grau disponível
                 if (uf.Find(src) != uf.Find(dest) &&
                     adjacencyList[src].Count < roomMaxDegrees[src] &&
                     adjacencyList[dest].Count < roomMaxDegrees[dest])
@@ -133,224 +112,207 @@ public class Graph
                 attemptsCount++;
             }
 
-            // Verificar se a árvore geradora conecta todos os vértices
             if (spanningTree.Count == Vertices - 1 && IsConnected())
             {
-                Debug.Log($"Árvore geradora conectada gerada com sucesso na tentativa {attempt + 1}.");
-
-                // Agora, tentar atribuir rotações
-                if (AssignRotations())
-                {
-                    Debug.Log("Rotações atribuídas com sucesso.");
-                    return;
-                }
-                else
-                {
-                    Debug.LogWarning($"Tentativa {attempt + 1}: Falha ao atribuir rotações. Tentando novamente...");
-                }
+                Debug.Log($"Connected spanning tree generated successfully on attempt {attempt + 1}.");
+                return;
             }
             else
             {
-                Debug.LogWarning($"Tentativa {attempt + 1}: Falha ao gerar uma árvore geradora conectada válida. Tentando novamente...");
+                Debug.LogWarning($"Attempt {attempt + 1}: Failed to generate a valid connected spanning tree. Trying again...");
             }
         }
 
-        // Se todas as tentativas falharem
-        Debug.LogError("Falha ao gerar uma árvore geradora conectada após várias tentativas. Verifique as restrições de grau ou o número de vértices.");
+        Debug.LogError("Failed to generate a connected spanning tree after multiple attempts. Check degree constraints or the number of vertices.");
     }
 
-    /// <summary>
-    /// Atribui rotações às salas garantindo que as portas conectadas estejam alinhadas.
-    /// </summary>
-    /// <returns>True se as rotações puderem ser atribuídas corretamente, False caso contrário.</returns>
-    private bool AssignRotations()
+    public void AlignAndConnectDoors(int startRoomIndex)
     {
-        // Inicializar todas as rotações como não atribuídas (-1)
-        for (int i = 0; i < Vertices; i++)
-        {
-            roomRotations[i] = -1;
-            roomUsedDoors[i].Clear();
-        }
-
-        // Escolher a sala inicial (pode ser a primeira sala)
-        int initialRoom = 0;
-        roomRotations[initialRoom] = 0; // Rotação 0°
-
-        // Iniciar o backtracking a partir da sala inicial
-        return BacktrackAssignRotations(initialRoom);
+        bool[] visited = new bool[Vertices];
+        roomRotations[startRoomIndex] = 0; // Define a rotação inicial para a sala de início
+        AlignAndConnectDoorsRecursive(startRoomIndex, visited);
     }
 
-    /// <summary>
-    /// Função recursiva de backtracking para atribuir rotações às salas.
-    /// </summary>
-    /// <param name="currentRoom">Sala atual sendo processada.</param>
-    /// <returns>True se uma atribuição válida for encontrada, False caso contrário.</returns>
-    private bool BacktrackAssignRotations(int currentRoom)
+    private void AlignAndConnectDoorsRecursive(int currentRoom, bool[] visited)
     {
-        // Iterar sobre todas as salas conectadas à sala atual
-        foreach (int connectedRoom in adjacencyList[currentRoom])
+        visited[currentRoom] = true;
+        Debug.Log($"Aligning Room {currentRoom}, Rotation: {roomRotations[currentRoom] * 90} degrees");
+
+        foreach (int neighbor in adjacencyList[currentRoom])
         {
-            if (roomRotations[connectedRoom] == -1)
+            if (visited[neighbor])
+                continue;
+
+            Debug.Log($"Processing neighbor {neighbor} of Room {currentRoom}");
+
+            // Obtenha uma porta não usada em currentRoom
+            DoorDirection doorInCurrent = GetUnusedDoor(currentRoom);
+            if (doorInCurrent == DoorDirection.None)
             {
-                // A sala conectada ainda não tem rotação atribuída
-                // Precisamos determinar a rotação que alinha a porta de 'currentRoom' com a porta de 'connectedRoom'
-
-                // Identificar a direção da porta em 'currentRoom' que conecta a 'connectedRoom'
-                DoorDirection directionInCurrent = GetConnectingDoorDirection(currentRoom, connectedRoom);
-
-                // A direção na 'connectedRoom' deve ser oposta
-                DoorDirection requiredDirectionInConnected = DirectionHelper.GetOppositeDirection(directionInCurrent);
-
-                // Tentar todas as possíveis rotações para 'connectedRoom' até encontrar uma que satisfaça a condição
-                for (int rotation = 0; rotation < 4; rotation++)
-                {
-                    // Verificar se a 'connectedRoom' tem uma porta na direção requerida após a rotação
-                    bool hasRequiredDoor = HasDoorInDirection(connectedRoom, requiredDirectionInConnected, rotation);
-
-                    if (hasRequiredDoor && roomUsedDoors[connectedRoom].Count < roomMaxDegrees[connectedRoom])
-                    {
-                        // Atribuir a rotação
-                        roomRotations[connectedRoom] = rotation;
-
-                        // Marcar a porta usada na connectedRoom
-                        roomUsedDoors[connectedRoom].Add(requiredDirectionInConnected);
-
-                        // Marcar a porta usada na currentRoom
-                        roomUsedDoors[currentRoom].Add(directionInCurrent);
-
-                        // Verificar se esta atribuição não conflita com rotações previamente atribuídas
-                        if (IsValidRotation(currentRoom))
-                        {
-                            // Recursivamente atribuir rotações para as salas conectadas à 'connectedRoom'
-                            if (BacktrackAssignRotations(connectedRoom))
-                            {
-                                return true; // Sucesso
-                            }
-                        }
-
-                        // Se falhar, remover a atribuição e tentar a próxima rotação
-                        roomRotations[connectedRoom] = -1;
-                        roomUsedDoors[connectedRoom].Remove(requiredDirectionInConnected);
-                        roomUsedDoors[currentRoom].Remove(directionInCurrent);
-                    }
-                }
-
-                // Se nenhuma rotação for válida para a 'connectedRoom', retroceder
-                return false;
+                Debug.LogError($"Room {currentRoom} has no unused doors to connect to Room {neighbor}");
+                continue;
             }
-            else
+
+            // Direção oposta à porta usada em currentRoom
+            DoorDirection requiredDoorInNeighbor = DirectionHelper.GetOppositeDirection(doorInCurrent);
+
+            // Tente encontrar uma rotação para neighbor que alinhe a porta necessária
+            int rotation = GetRotationForDoor(neighbor, requiredDoorInNeighbor);
+            if (rotation == -1)
             {
-                // A sala conectada já tem rotação atribuída
-                // Verificar se as portas estão alinhadas corretamente
-                DoorDirection directionInCurrent = GetConnectingDoorDirection(currentRoom, connectedRoom);
-                DoorDirection requiredDirectionInConnected = DirectionHelper.GetOppositeDirection(directionInCurrent);
-
-                // A rotação atribuída deve ter uma porta na direção requerida
-                bool isAligned = HasDoorInDirection(connectedRoom, requiredDirectionInConnected, roomRotations[connectedRoom]);
-
-                if (!isAligned)
-                {
-                    return false; // Conflito encontrado
-                }
-                else
-                {
-                    // Marcar as portas usadas
-                    roomUsedDoors[currentRoom].Add(directionInCurrent);
-                    roomUsedDoors[connectedRoom].Add(requiredDirectionInConnected);
-                }
+                Debug.LogError($"Cannot rotate Room {neighbor} to align door {requiredDoorInNeighbor}");
+                continue;
             }
+
+            // Aplique a rotação lógica à sala neighbor
+            roomRotations[neighbor] = rotation;
+
+            // Atualize as direções das portas na sala neighbor
+            UpdateDoorDirections(rooms[neighbor], rotation);
+
+            // **Novo código: Rotaciona graficamente a sala neighbor**
+            RotateRoomGameObject(rooms[neighbor], rotation);
+
+            Debug.Log($"Rotated Room {neighbor} to {rotation * 90} degrees to align door {requiredDoorInNeighbor}");
+
+            // Marque as portas como usadas
+            MarkDoorAsUsed(currentRoom, doorInCurrent);
+            MarkDoorAsUsed(neighbor, requiredDoorInNeighbor);
+            Debug.Log($"Marked doors as used: Room {currentRoom} - {doorInCurrent}, Room {neighbor} - {requiredDoorInNeighbor}");
+
+            // Atualize os DoorTriggers para conectar as salas
+            ConnectDoors(currentRoom, doorInCurrent, neighbor, requiredDoorInNeighbor);
+
+            // Chame a função recursivamente para neighbor
+            AlignAndConnectDoorsRecursive(neighbor, visited);
         }
-
-        // Todas as conexões da sala atual foram processadas sem conflitos
-        return true;
     }
 
-    /// <summary>
-    /// Obtém a direção da porta na 'currentRoom' que conecta à 'connectedRoom'.
-    /// </summary>
-    /// <param name="currentRoom">Sala atual.</param>
-    /// <param name="connectedRoom">Sala conectada.</param>
-    /// <returns>Direção da porta na 'currentRoom'.</returns>
-    private DoorDirection GetConnectingDoorDirection(int currentRoom, int connectedRoom)
+
+    private void RotateRoomGameObject(GameObject roomGO, int rotationIndex)
+{
+    // Calcula o ângulo de rotação em graus
+    float rotationAngle = rotationIndex * 90f * -1;
+
+    // Aplica a rotação ao transform da sala
+    roomGO.transform.rotation = Quaternion.Euler(0, 0, rotationAngle);
+
+    Debug.Log($"Rotated GameObject {roomGO.name} by {rotationAngle} degrees");
+}
+
+
+
+    private DoorDirection GetUnusedDoor(int roomIndex)
     {
-        // Identificar a direção da porta na 'currentRoom' que conecta à 'connectedRoom'
-        // Para cada porta da sala atual, verificar se está conectada à 'connectedRoom'
-
-        // Obter as portas rotacionadas
-        List<DoorDirection> rotatedDoors = RotateOriginalDoors(currentRoom, roomRotations[currentRoom]);
-
-        // Iterar pelas portas rotacionadas e verificar se alguma pode ser usada para conectar à 'connectedRoom'
-        for (int i = 0; i < rotatedDoors.Count; i++)
+        List<DoorDirection> availableDoors = GetRotatedDoors(roomIndex);
+        foreach (var door in availableDoors)
         {
-            DoorDirection door = rotatedDoors[i];
-            // A direção oposta deve ter uma porta na 'connectedRoom'
-            DoorDirection oppositeDoor = DirectionHelper.GetOppositeDirection(door);
-            if (HasDoorInDirection(connectedRoom, oppositeDoor, roomRotations[connectedRoom]))
+            if (!roomUsedDoors[roomIndex].Contains(door))
             {
-                // Verificar se a porta está disponível (não usada)
-                if (!roomUsedDoors[currentRoom].Contains(door))
+                Debug.Log($"Room {roomIndex}: Unused door found - {door}");
+                return door;
+            }
+        }
+        Debug.LogError($"Room {roomIndex} has no unused doors");
+        return DoorDirection.None;
+    }
+
+
+    private int GetRotationForDoor(int roomIndex, DoorDirection requiredDoor)
+    {
+        List<DoorDirection> originalDoors = GetOriginalDoors(roomIndex);
+
+        for (int rotation = 0; rotation < 4; rotation++)
+        {
+            foreach (var door in originalDoors)
+            {
+                DoorDirection rotatedDoor = DirectionHelper.RotateDirection(door, rotation);
+                if (rotatedDoor == requiredDoor)
                 {
-                    return door;
+                    return rotation;
                 }
             }
         }
-
-        // Se nenhuma porta for encontrada, retornar uma direção padrão (não ideal)
-        Debug.LogWarning($"Sala {currentRoom} não conseguiu encontrar uma porta válida para conectar à Sala {connectedRoom}");
-        return DoorDirection.North; // Default
+        return -1; // Nenhuma rotação encontrada
     }
 
-    /// <summary>
-    /// Rotaciona as portas originais de uma sala com base na rotação.
-    /// </summary>
-    /// <param name="roomIndex">Índice da sala.</param>
-    /// <param name="rotation">Rotação aplicada (0-3, correspondendo a 0°, 90°, 180°, 270°).</param>
-    /// <returns>Lista de direções das portas após rotação.</returns>
-    private List<DoorDirection> RotateOriginalDoors(int roomIndex, int rotation)
+    private void UpdateDoorDirections(GameObject roomGO, int rotationIndex)
+    {
+        DoorTrigger[] doorTriggers = roomGO.GetComponentsInChildren<DoorTrigger>(true);
+        foreach (var doorTrigger in doorTriggers)
+        {
+            DoorDirection originalDirection = doorTrigger.doorDirection;
+            doorTrigger.currentDirection = DirectionHelper.RotateDirection(doorTrigger.doorDirection, rotationIndex);
+            Debug.Log($"Room {roomGO.name}: Door {originalDirection} rotated by {rotationIndex * 90} degrees to {doorTrigger.currentDirection}");
+        }
+    }
+
+
+    private void MarkDoorAsUsed(int roomIndex, DoorDirection door)
+    {
+        if (!roomUsedDoors[roomIndex].Contains(door))
+        {
+            roomUsedDoors[roomIndex].Add(door);
+            Debug.Log($"Marked door {door} as used in Room {roomIndex}");
+        }
+    }
+
+
+    private void ConnectDoors(int roomAIndex, DoorDirection doorA, int roomBIndex, DoorDirection doorB)
+    {
+        GameObject roomA = rooms[roomAIndex];
+        GameObject roomB = rooms[roomBIndex];
+
+        DoorTrigger doorTriggerA = GetDoorTrigger(roomA, doorA);
+        DoorTrigger doorTriggerB = GetDoorTrigger(roomB, doorB);
+
+        if (doorTriggerA != null && doorTriggerB != null)
+        {
+            doorTriggerA.connectedRoomIndex = roomBIndex;
+            doorTriggerB.connectedRoomIndex = roomAIndex;
+
+            Debug.Log($"Connected Room {roomAIndex} (Door {doorA}) with Room {roomBIndex} (Door {doorB})");
+        }
+        else
+        {
+            Debug.LogError($"Failed to connect doors between Room {roomAIndex} and Room {roomBIndex}");
+        }
+    }
+
+
+    private DoorTrigger GetDoorTrigger(GameObject room, DoorDirection doorDirection)
+    {
+        DoorTrigger[] doorTriggers = room.GetComponentsInChildren<DoorTrigger>(true);
+        foreach (var doorTrigger in doorTriggers)
+        {
+            if (doorTrigger.currentDirection == doorDirection)
+            {
+                Debug.Log($"Found DoorTrigger in {room.name} with direction {doorDirection}");
+                return doorTrigger;
+            }
+        }
+        Debug.LogError($"DoorTrigger with direction {doorDirection} not found in {room.name}");
+        return null;
+    }
+
+
+    private List<DoorDirection> GetRotatedDoors(int roomIndex)
     {
         List<DoorDirection> originalDoors = GetOriginalDoors(roomIndex);
         List<DoorDirection> rotatedDoors = new List<DoorDirection>();
+        int rotation = roomRotations[roomIndex];
+
         foreach (var door in originalDoors)
         {
-            rotatedDoors.Add(DirectionHelper.RotateDirection(door, rotation));
+            DoorDirection rotatedDoor = DirectionHelper.RotateDirection(door, rotation);
+            rotatedDoors.Add(rotatedDoor);
         }
+
         return rotatedDoors;
     }
 
-    /// <summary>
-    /// Verifica se uma sala possui uma porta na direção especificada após uma rotação.
-    /// </summary>
-    /// <param name="roomIndex">Índice da sala.</param>
-    /// <param name="direction">Direção requerida.</param>
-    /// <param name="rotation">Rotação aplicada (0-3, correspondendo a 0°, 90°, 180°, 270°).</param>
-    /// <returns>True se a sala possui uma porta na direção após a rotação, False caso contrário.</returns>
-    private bool HasDoorInDirection(int roomIndex, DoorDirection direction, int rotation)
-    {
-        // Obter as portas originais da sala
-        List<DoorDirection> originalDoors = GetOriginalDoors(roomIndex);
-
-        // Rotacionar as portas
-        List<DoorDirection> rotatedDoors = new List<DoorDirection>();
-        foreach (var door in originalDoors)
-        {
-            rotatedDoors.Add(DirectionHelper.RotateDirection(door, rotation));
-        }
-
-        // Verificar se a direção requerida está presente e não está sendo usada
-        return rotatedDoors.Contains(direction);
-    }
-
-    /// <summary>
-    /// Obtém as portas originais de uma sala sem rotação.
-    /// </summary>
-    /// <param name="roomIndex">Índice da sala.</param>
-    /// <returns>Lista de direções das portas.</returns>
     private List<DoorDirection> GetOriginalDoors(int roomIndex)
     {
-        // Sala1: 1 porta (East)
-        // Sala2: 2 portas (East, West)
-        // Sala3: 3 portas (East, West, South)
-
         if (roomTypes[roomIndex] == RoomType.Sala1)
         {
             return new List<DoorDirection> { DoorDirection.East };
@@ -365,55 +327,19 @@ public class Graph
         }
         else
         {
-            return new List<DoorDirection>(); // Caso não haja portas
+            return new List<DoorDirection>();
         }
     }
 
-    /// <summary>
-    /// Verifica se a rotação atribuída a uma sala não causa conflitos com rotações de salas conectadas.
-    /// </summary>
-    /// <param name="roomIndex">Índice da sala.</param>
-    /// <returns>True se a rotação for válida, False caso contrário.</returns>
-    private bool IsValidRotation(int roomIndex)
-    {
-        // Para cada conexão da sala, verificar se as portas estão alinhadas
-        foreach (int connectedRoom in adjacencyList[roomIndex])
-        {
-            if (roomRotations[connectedRoom] == -1)
-                continue; // Ainda não foi atribuído
-
-            // Obter a direção da porta na sala atual que conecta à sala conectada
-            DoorDirection directionInCurrent = GetConnectingDoorDirection(roomIndex, connectedRoom);
-            // A direção requerida na sala conectada
-            DoorDirection requiredDirectionInConnected = DirectionHelper.GetOppositeDirection(directionInCurrent);
-
-            // Verificar se a sala conectada possui uma porta nessa direção após sua rotação
-            bool isAligned = HasDoorInDirection(connectedRoom, requiredDirectionInConnected, roomRotations[connectedRoom]);
-
-            if (!isAligned)
-                return false; // Conflito encontrado
-        }
-
-        return true; // Nenhum conflito
-    }
-
-    /// <summary>
-    /// Adiciona uma aresta ao grafo.
-    /// </summary>
-    /// <param name="source">Índice da sala de origem.</param>
-    /// <param name="destination">Índice da sala de destino.</param>
     private void AddEdge(int source, int destination)
     {
         Edge newEdge = new Edge(source, destination);
         Edges.Add(newEdge);
         adjacencyList[source].Add(destination);
         adjacencyList[destination].Add(source);
-        Debug.Log($"Adicionada aresta: {source} -- {destination}");
+        Debug.Log($"Added edge: {source} -- {destination}");
     }
 
-    /// <summary>
-    /// Método para verificar se o grafo é conexo.
-    /// </summary>
     public bool IsConnected()
     {
         bool[] visited = new bool[Vertices];
@@ -428,11 +354,6 @@ public class Graph
         return true;
     }
 
-    /// <summary>
-    /// Busca em profundidade para verificar conectividade.
-    /// </summary>
-    /// <param name="vertex">Vértice atual.</param>
-    /// <param name="visited">Array de vértices visitados.</param>
     private void DFS(int vertex, bool[] visited)
     {
         visited[vertex] = true;
@@ -444,10 +365,6 @@ public class Graph
         }
     }
 
-    /// <summary>
-    /// Embaralha a lista de arestas utilizando o algoritmo de Fisher-Yates.
-    /// </summary>
-    /// <param name="list">Lista de arestas.</param>
     private void Shuffle(List<Edge> list)
     {
         int n = list.Count;
@@ -461,82 +378,66 @@ public class Graph
         }
     }
 
-    /// <summary>
-    /// Apenas para depuração, imprime todas as arestas do grafo.
-    /// </summary>
-    public void PrintGraph()
-    {
-        Debug.Log("Arestas do Grafo:");
-        foreach (var edge in Edges)
-        {
-            Debug.Log($"{edge.Source} -- {edge.Destination}");
-        }
-    }
-
-    /// <summary>
-    /// Gera uma representação do grafo no formato DOT.
-    /// </summary>
-    /// <returns>String no formato DOT representando o grafo.</returns>
     public string ToDotFormat()
     {
         StringBuilder sb = new StringBuilder();
 
-        // Início da definição do grafo. Usamos "graph" para grafos não direcionados.
         sb.AppendLine("graph G {");
+        sb.AppendLine("    node [shape=circle];");
 
-        // Opcional: Definir atributos globais
-        sb.AppendLine("    node [shape=circle];"); // Define o formato dos nós
-
-        // Adicionar todas as arestas
         foreach (var edge in Edges)
         {
             sb.AppendLine($"    {edge.Source} -- {edge.Destination};");
         }
 
-        sb.AppendLine("}"); // Fim da definição do grafo
+        sb.AppendLine("}");
 
         return sb.ToString();
     }
 
-    /// <summary>
-    /// Exporta a representação DOT do grafo para um arquivo especificado.
-    /// </summary>
-    /// <param name="filePath">Caminho completo para o arquivo de saída.</param>
     public void ExportToDotFile(string filePath)
     {
         string dotFormat = ToDotFormat();
         File.WriteAllText(filePath, dotFormat);
-        Debug.Log($"Grafo exportado para o arquivo DOT: {filePath}");
+        Debug.Log($"Graph exported to DOT file: {filePath}");
     }
 
-    /// <summary>
-    /// Verifica se todas as portas estão alinhadas corretamente.
-    /// </summary>
-    public bool VerifyAllDoorsAligned()
+        public DoorDirection GetConnectingDoor(int roomAIndex, int roomBIndex)
     {
-        bool allAligned = true;
-        foreach(var edge in Edges)
+        foreach (var door in roomUsedDoors[roomAIndex])
         {
-            int roomA = edge.Source;
-            int roomB = edge.Destination;
-
-            DoorDirection directionA = GetConnectingDoorDirection(roomA, roomB);
-            DoorDirection directionB = DirectionHelper.GetOppositeDirection(directionA);
-
-            bool roomBHasDirection = HasDoorInDirection(roomB, directionB, roomRotations[roomB]);
-
-            if (!roomBHasDirection)
+            DoorDirection oppositeDoor = DirectionHelper.GetOppositeDirection(door);
+            if (roomUsedDoors[roomBIndex].Contains(oppositeDoor))
             {
-                Debug.LogError($"Portas entre Sala {roomA} e Sala {roomB} não estão alinhadas.");
-                allAligned = false;
+                return door;
             }
         }
-
-        if (!allAligned)
-        {
-            Debug.LogError("Há portas desalinhadas nas salas. Verifique a lógica de rotacionamento.");
-        }
-
-        return allAligned;
+        return DoorDirection.None;
     }
+
+
+    public bool VerifyAllDoorsAligned()
+{
+    bool allAligned = true;
+    foreach (var edge in Edges)
+    {
+        int roomA = edge.Source;
+        int roomB = edge.Destination;
+
+        DoorDirection doorA = GetConnectingDoor(roomA, roomB);
+        DoorDirection doorB = DirectionHelper.GetOppositeDirection(doorA);
+
+        if (!roomUsedDoors[roomA].Contains(doorA) || !roomUsedDoors[roomB].Contains(doorB))
+        {
+            Debug.LogError($"As portas entre a Sala {roomA} e a Sala {roomB} não estão alinhadas.");
+            allAligned = false;
+        }
+        else
+        {
+            Debug.Log($"Portas entre a Sala {roomA} e a Sala {roomB} estão alinhadas: Sala {roomA} (Porta {doorA}), Sala {roomB} (Porta {doorB}).");
+        }
+    }
+    return allAligned;
+}
+
 }

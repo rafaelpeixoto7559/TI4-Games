@@ -1,26 +1,26 @@
-// DirectionHelper.cs
 public static class DirectionHelper
 {
-    /// <summary>
-    /// Rotaciona uma direção em passos de 90 graus.
-    /// </summary>
-    /// <param name="direction">Direção original.</param>
-    /// <param name="rotationSteps">Número de rotações de 90 graus (0-3).</param>
-    /// <returns>Nova direção após rotação.</returns>
-    public static DoorDirection RotateDirection(DoorDirection direction, int rotationSteps)
+    public static DoorDirection RotateDirection(DoorDirection originalDirection, int rotationIndex)
     {
-        int dirValue = (int)direction;
-        int rotatedValue = (dirValue + rotationSteps) % 4;
-        return (DoorDirection)rotatedValue;
+        if (originalDirection == DoorDirection.None)
+            return DoorDirection.None;
+
+        int directionValue = (int)originalDirection;
+
+        int newDirectionValue = (directionValue + rotationIndex) % 4;
+        if (newDirectionValue < 0)
+            newDirectionValue += 4;
+
+        return (DoorDirection)newDirectionValue;
     }
 
-    /// <summary>
-    /// Obtém a direção oposta de uma direção dada.
-    /// </summary>
-    /// <param name="direction">Direção original.</param>
-    /// <returns>Direção oposta.</returns>
     public static DoorDirection GetOppositeDirection(DoorDirection direction)
     {
-        return (DoorDirection)(((int)direction + 2) % 4);
+        if (direction == DoorDirection.None)
+            return DoorDirection.None;
+
+        int oppositeDirectionValue = ((int)direction + 2) % 4;
+
+        return (DoorDirection)oppositeDirectionValue;
     }
 }
