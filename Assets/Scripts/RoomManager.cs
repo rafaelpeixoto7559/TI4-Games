@@ -67,7 +67,10 @@ public class RoomManager : MonoBehaviour
 
         graph = new Graph(numberOfRooms, rooms.ToArray()); // Passa as salas instanciadas para o grafo
         graph.GenerateConnectedGraph();
+        graph.AssignRoomTypes();
+        InstantiateRoomsWithTypes();
 
+        graph.UpdateRoomInstances(rooms.ToArray());
         // Alinha e conecta as portas
         graph.AlignAndConnectDoors(0); // Começa pela sala 0
 
@@ -118,20 +121,31 @@ public class RoomManager : MonoBehaviour
         }
     }
 
-    void InstantiateRooms()
+    void InstantiateRoomsWithTypes()
+    {
+        for (int i = 0; i < numberOfRooms; i++)
         {
-            // Instancia e configura todas as salas
-            for (int i = 0; i < numberOfRooms; i++)
-            {
-                // Instancia o GameObject da sala
-                GameObject roomPrefab = roomPrefabs[i % 3]; // Modifique conforme necessário
-                GameObject roomInstance = Instantiate(roomPrefab);
-                roomInstance.name = $"Room_{i}";
-
-                // Adiciona à lista de salas
-                rooms.Add(roomInstance);
-            }
+            RoomType roomType = graph.roomTypes[i];
+            GameObject roomPrefab = roomPrefabs[(int)roomType];
+            GameObject roomInstance = Instantiate(roomPrefab);
+            roomInstance.name = $"Room_{i}";
+            rooms[i] = roomInstance;
         }
+    }
+
+    void InstantiateRooms()
+    {
+        // Instancia e configura todas as salas
+        for (int i = 0; i < numberOfRooms; i++)
+        {
+            // O tipo de sala será atribuído após a geração do grafo
+            // Aqui, inicialmente, podemos instanciar qualquer sala ou deixar para instanciar após atribuir os tipos
+
+            // Adiciona um placeholder na lista de salas
+            rooms.Add(null);
+        }
+    }
+
 
     void UpdateDoorDirections(GameObject roomGO, int rotationIndex)
     {

@@ -2,13 +2,9 @@ using UnityEngine;
 
 public class DoorTrigger : MonoBehaviour
 {
-    public int connectedRoomIndex = -1;  // Index of the room this door leads to
-
-    // Original door direction before rotation
     public DoorDirection doorDirection;
-
-
     public DoorDirection currentDirection;
+    public int connectedRoomIndex = -1; // Initialize to -1
 
     private RoomManager roomManager;
 

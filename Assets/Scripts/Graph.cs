@@ -38,26 +38,50 @@ public class Graph
         {
             adjacencyList[i] = new List<int>();
             roomUsedDoors[i] = new List<DoorDirection>();
+            roomRotations[i] = -1;
+            roomMaxDegrees.Add(3); // Inicialmente, assumimos que o grau máximo é 3
+        }
+    }
 
-            if (i % 3 == 0)
+
+
+    public void AssignRoomTypes()
+    {
+        for (int i = 0; i < Vertices; i++)
+        {
+            int degree = adjacencyList[i].Count;
+
+            if (degree == 1)
             {
                 roomTypes[i] = RoomType.Sala1;
-                roomMaxDegrees.Add(1);
+                roomMaxDegrees[i] = 1;
             }
-            else if (i % 3 == 1)
+            else if (degree == 2)
             {
                 roomTypes[i] = RoomType.Sala2;
-                roomMaxDegrees.Add(2);
+                roomMaxDegrees[i] = 2;
+            }
+            else if (degree == 3)
+            {
+                roomTypes[i] = RoomType.Sala3;
+                roomMaxDegrees[i] = 3;
             }
             else
             {
-                roomTypes[i] = RoomType.Sala3;
-                roomMaxDegrees.Add(3);
+                Debug.LogError($"Vertex {i} has an unexpected degree of {degree}");
             }
 
-            roomRotations[i] = -1;
+            Debug.Log($"Assigned RoomType {roomTypes[i]} to vertex {i} with degree {degree}");
         }
     }
+
+    public void UpdateRoomInstances(GameObject[] roomInstances)
+    {
+        rooms = roomInstances;
+    }
+
+
+
 
     public void GenerateConnectedGraph()
     {
