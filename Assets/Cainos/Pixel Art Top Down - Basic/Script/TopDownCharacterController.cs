@@ -6,45 +6,46 @@ namespace Cainos.PixelArtTopDown_Basic
 {
     public class TopDownCharacterController : MonoBehaviour
     {
-        public float speed;
+        public float moveSpeed = 3.5f;  // Velocidade de movimentação
 
         private Animator animator;
+        private Rigidbody2D rb;
+        private Vector2 movement;
 
         private void Start()
         {
             animator = GetComponent<Animator>();
+            rb = GetComponent<Rigidbody2D>();  // Referência ao Rigidbody2D do Player
         }
-
 
         private void Update()
         {
-            Vector2 dir = Vector2.zero;
-            if (Input.GetKey(KeyCode.A))
-            {
-                dir.x = -1;
-                animator.SetInteger("Direction", 3);
-            }
-            else if (Input.GetKey(KeyCode.D))
-            {
-                dir.x = 1;
-                animator.SetInteger("Direction", 2);
-            }
+            // Capturar a entrada do teclado para as direções
+            movement.x = Input.GetAxisRaw("Horizontal");  // Eixo X (A/D ou Setas Esquerda/Direita)
+            movement.y = Input.GetAxisRaw("Vertical");    // Eixo Y (W/S ou Setas Cima/Baixo)
 
-            if (Input.GetKey(KeyCode.W))
-            {
-                dir.y = 1;
-                animator.SetInteger("Direction", 1);
-            }
-            else if (Input.GetKey(KeyCode.S))
-            {
-                dir.y = -1;
-                animator.SetInteger("Direction", 0);
-            }
+            // Configuração do Animator com base na direção
+            if (movement.x < 0)
+                animator.SetInteger("Direction", 3);  // Esquerda
+            else if (movement.x > 0)
+                animator.SetInteger("Direction", 2);  // Direita
 
-            dir.Normalize();
-            animator.SetBool("IsMoving", dir.magnitude > 0);
+            if (movement.y > 0)
+                animator.SetInteger("Direction", 1);  // Cima
+            else if (movement.y < 0)
+                animator.SetInteger("Direction", 0);  // Baixo
 
-            GetComponent<Rigidbody2D>().velocity = speed * dir;
+            // Normaliza a direção para evitar movimento diagonal mais rápido
+            movement.Normalize();
+
+            // Define se o personagem está se movendo
+            animator.SetBool("IsMoving", movement.magnitude > 0);
+        }
+
+        private void FixedUpdate()
+        {
+            // Movimentar o player com base nas entradas de teclado e velocidade
+            rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
         }
     }
 }
