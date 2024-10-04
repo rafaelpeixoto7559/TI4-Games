@@ -21,7 +21,7 @@ public class RoomManager : MonoBehaviour
     public Vector3 playerSpawnOffset = new Vector3(0, -2, 0); // Offset para spawnar o jogador dentro da sala
 
     [Header("Graph Settings")]
-    public int numberOfRooms = 10;  // Número total de salas
+    public int numberOfRooms = 15;  // Número total de salas
 
     [Header("Camera Settings")]
     public Camera mainCamera; // Referência para a câmera principal

@@ -283,10 +283,7 @@ MonoBehaviour:
   playerPrefab: {fileID: 3974211980830810717, guid: bd49d3598e116e542861d0a772d0e0f8,
     type: 3}
   playerSpawnOffset: {x: 0, y: -2, z: -6}
-  roomSpawnBasePosition: {x: 0, y: 0, z: 0}
-  roomSpacing: 15
   numberOfRooms: 10
-  maxDegree: 3
   mainCamera: {fileID: 1512252403}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
