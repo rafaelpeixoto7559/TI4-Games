@@ -80,9 +80,6 @@ public class Graph
         rooms = roomInstances;
     }
 
-
-
-
     public void GenerateConnectedGraph()
     {
         int maxRetries = 100;

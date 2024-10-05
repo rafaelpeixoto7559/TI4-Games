@@ -27612,10 +27612,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf4b2fe27de25994b91b17117581504e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomManager: {fileID: 0}
-  connectedRoomIndex: 0
   doorDirection: 3
   currentDirection: 3
+  connectedRoomIndex: 0
 --- !u!61 &3805698032604442508
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -27737,10 +27736,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf4b2fe27de25994b91b17117581504e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomManager: {fileID: 0}
-  connectedRoomIndex: 0
   doorDirection: 1
   currentDirection: 1
+  connectedRoomIndex: 0
 --- !u!61 &298537220646632601
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -28434,10 +28432,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf4b2fe27de25994b91b17117581504e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomManager: {fileID: 0}
-  connectedRoomIndex: 0
   doorDirection: 2
   currentDirection: 2
+  connectedRoomIndex: 0
 --- !u!61 &686283673135963406
 BoxCollider2D:
   m_ObjectHideFlags: 0
