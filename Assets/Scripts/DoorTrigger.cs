@@ -1,46 +1,70 @@
+// DoorTrigger.cs
 using UnityEngine;
 
 public class DoorTrigger : MonoBehaviour
 {
-    public DoorDirection doorDirection;
-    public DoorDirection currentDirection;
-    public int connectedRoomIndex = -1; // Initialize to -1
+    public DoorDirection doorDirection; // Direção original da porta (e.g., East, West)
+    public DoorDirection currentDirection; // Direção atual após rotação
+    public int connectedRoomIndex = -1; // Índice da sala conectada
+    public DoorTrigger connectedDoorTrigger; // Referência ao DoorTrigger conectado
+
+    public Transform spawnPoint; // Referência ao ponto de spawn associado à porta
 
     private RoomManager roomManager;
 
     void Awake()
     {
-        // Assign the RoomManager instance
+        // Atribui a instância do RoomManager
         roomManager = RoomManager.Instance;
         if (roomManager == null)
         {
-            Debug.LogError("RoomManager instance not found in DoorTrigger.");
+            Debug.LogError("Instância do RoomManager não encontrada em DoorTrigger.");
         }
 
-        // Initially, set currentDirection to doorDirection
+        // Inicialmente, define currentDirection como doorDirection
         currentDirection = doorDirection;
-    }
 
-     private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Player"))
+        // Obtém o spawnPoint (filho) se não estiver atribuído
+        if (spawnPoint == null)
         {
-            if (connectedRoomIndex != -1)
+            Transform childSpawn = transform.Find("SpawnPoint");
+            if (childSpawn != null)
             {
-                Debug.Log($"Player entered the door to Room {connectedRoomIndex}");
-                RoomManager.Instance.GoToRoom(connectedRoomIndex);
+                spawnPoint = childSpawn;
             }
             else
             {
-                Debug.LogError("Door has no connected room assigned.");
+                Debug.LogError($"SpawnPoint não encontrado como filho de {gameObject.name}");
             }
         }
     }
 
-    // Method to draw Gizmos to visualize the door in the Editor
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            if (connectedRoomIndex != -1 && connectedDoorTrigger != null)
+            {
+                Debug.Log($"Player entrou pela porta {currentDirection} para a Sala {connectedRoomIndex}");
+                roomManager.GoToRoom(connectedRoomIndex, this); // Passa a própria porta como referência
+            }
+            else
+            {
+                Debug.LogError("A porta não tem uma sala conectada ou o DoorTrigger conectado não está atribuído.");
+            }
+        }
+    }
+
+    // Método para desenhar Gizmos no Editor
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(transform.position, new Vector3(1, 2, 1)); // Simple representation of the door
+        Gizmos.DrawWireCube(transform.position, new Vector3(1, 2, 1)); // Representação simples da porta
+
+        if (spawnPoint != null)
+        {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawSphere(spawnPoint.position, 0.2f); // Representação do ponto de spawn
+        }
     }
 }

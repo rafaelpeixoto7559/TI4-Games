@@ -1,8 +1,6 @@
 // RoomManager.cs
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.IO;
 
 public class RoomManager : MonoBehaviour
 {
@@ -18,7 +16,7 @@ public class RoomManager : MonoBehaviour
 
     [Header("Player Settings")]
     public GameObject playerPrefab; // Prefab do jogador
-    public Vector3 playerSpawnOffset = new Vector3(0, -2, 0); // Offset para spawnar o jogador dentro da sala
+    public Vector3 playerSpawnOffset = Vector3.zero; // Offset para spawnar o jogador dentro da sala
 
     [Header("Graph Settings")]
     public int numberOfRooms = 15;  // Número total de salas
@@ -62,7 +60,7 @@ public class RoomManager : MonoBehaviour
             }
         }
 
-         // Gera o grafo
+        // Gera o grafo
         InstantiateRooms(); // Instancia as salas primeiro
 
         graph = new Graph(numberOfRooms, rooms.ToArray()); // Passa as salas instanciadas para o grafo
@@ -78,10 +76,6 @@ public class RoomManager : MonoBehaviour
         string dot = graph.ToDotFormat();
         Debug.Log("Representação do Grafo em DOT:\n" + dot);
 
-
-
- 
-
         // Verifica se todas as portas estão alinhadas corretamente
         if (graph.VerifyAllDoorsAligned())
         {
@@ -96,7 +90,7 @@ public class RoomManager : MonoBehaviour
         ShowRoom(0);  // Começa no índice de sala 0
 
         // Spawna o jogador na primeira sala
-        SpawnPlayer(0);
+        SpawnPlayer(null); // Usa null para spawnar no centro ou posição padrão
 
         // Atribui a câmera para seguir o jogador
         if (mainCamera != null)
@@ -138,56 +132,22 @@ public class RoomManager : MonoBehaviour
         // Instancia e configura todas as salas
         for (int i = 0; i < numberOfRooms; i++)
         {
-            // O tipo de sala será atribuído após a geração do grafo
-            // Aqui, inicialmente, podemos instanciar qualquer sala ou deixar para instanciar após atribuir os tipos
-
             // Adiciona um placeholder na lista de salas
             rooms.Add(null);
         }
     }
 
-
-    void UpdateDoorDirections(GameObject roomGO, int rotationIndex)
-    {
-        DoorTrigger[] doorTriggers = roomGO.GetComponentsInChildren<DoorTrigger>(true);
-        foreach (var doorTrigger in doorTriggers)
-        {
-            // Atualiza currentDirection com base na rotação
-            doorTrigger.currentDirection = DirectionHelper.RotateDirection(doorTrigger.doorDirection, rotationIndex);
-            // Log opcional do resultado
-            Debug.Log($"Porta {doorTrigger.doorDirection} rotacionada em {rotationIndex * 90} graus torna-se {doorTrigger.currentDirection} na {roomGO.name}");
-        }
-    }
-
-    DoorTrigger GetDoorTrigger(GameObject room, DoorDirection doorDirection)
-    {
-        DoorTrigger[] doorTriggers = room.GetComponentsInChildren<DoorTrigger>(true); // Inclui objetos inativos
-        foreach (var doorTrigger in doorTriggers)
-        {
-            if (doorTrigger.currentDirection == doorDirection)
-            {
-                return doorTrigger;
-            }
-        }
-        Debug.LogError($"[GetDoorTrigger] DoorTrigger com direção {doorDirection} não encontrado na sala {room.name}. Portas disponíveis: {string.Join(", ", GetDoorDirectionsInRoom(room))}");
-        return null;
-    }
-
-    IEnumerable<DoorDirection> GetDoorDirectionsInRoom(GameObject room)
-    {
-        DoorTrigger[] doorTriggers = room.GetComponentsInChildren<DoorTrigger>(true);
-        foreach (var doorTrigger in doorTriggers)
-        {
-            yield return doorTrigger.currentDirection;
-        }
-    }
-
-    public void GoToRoom(int roomIndex)
+    /// <summary>
+    /// Transita para a sala especificada, posicionando o jogador no ponto de spawn associado à porta de saída.
+    /// </summary>
+    /// <param name="roomIndex">Índice da sala para a qual transitar.</param>
+    /// <param name="entranceDoor">Referência ao DoorTrigger pela qual o jogador está entrando.</param>
+    public void GoToRoom(int roomIndex, DoorTrigger entranceDoor)
     {
         if (roomIndex == currentRoomIndex)
             return;
 
-        Debug.Log($"Transitioning from Room {currentRoomIndex} to Room {roomIndex}");
+        Debug.Log($"Transitando da Sala {currentRoomIndex} para a Sala {roomIndex} via Porta {entranceDoor.doorDirection}");
 
         // Desativa a sala atual
         rooms[currentRoomIndex].SetActive(false);
@@ -198,8 +158,8 @@ public class RoomManager : MonoBehaviour
         // Atualiza o índice da sala atual
         currentRoomIndex = roomIndex;
 
-        // Reposiciona o jogador na nova sala
-        RepositionPlayer();
+        // Reposiciona o jogador na nova sala usando o ponto de spawn associado à porta de saída
+        RepositionPlayer(entranceDoor);
     }
 
     // Método para ativar apenas uma sala, desativando todas as outras
@@ -216,8 +176,11 @@ public class RoomManager : MonoBehaviour
         currentRoomIndex = roomIndex;
     }
 
-    // Método para spawnar o jogador na sala inicial
-    void SpawnPlayer(int roomIndex)
+    /// <summary>
+    /// Spawna o jogador na sala inicial ou em transições.
+    /// </summary>
+    /// <param name="entranceDoor">Referência ao DoorTrigger pela qual o jogador está entrando. Null para spawn inicial.</param>
+    void SpawnPlayer(DoorTrigger entranceDoor)
     {
         if (playerPrefab == null)
         {
@@ -230,38 +193,73 @@ public class RoomManager : MonoBehaviour
         if (existingPlayer == null)
         {
             // Instancia o Player
-            GameObject player = Instantiate(playerPrefab, GetPlayerSpawnPosition(roomIndex), Quaternion.identity);
+            Vector3 spawnPosition = Vector3.zero;
+            if (entranceDoor != null && entranceDoor.connectedDoorTrigger != null && entranceDoor.connectedDoorTrigger.spawnPoint != null)
+            {
+                // Usa o spawnPoint da porta de saída na nova sala
+                spawnPosition = entranceDoor.connectedDoorTrigger.spawnPoint.position + playerSpawnOffset;
+            }
+            else
+            {
+                // Spawn padrão no centro da sala
+                GameObject room = rooms[currentRoomIndex];
+                if (room != null)
+                {
+                    spawnPosition = room.transform.position + playerSpawnOffset;
+                }
+                else
+                {
+                    Debug.LogError("Sala atual não está instanciada corretamente.");
+                }
+            }
+
+            GameObject player = Instantiate(playerPrefab, spawnPosition, Quaternion.identity);
             player.name = "Player";
             Debug.Log("Player instanciado.");
         }
         else
         {
             // Reposiciona o Player existente
-            existingPlayer.transform.position = GetPlayerSpawnPosition(roomIndex);
+            RepositionPlayer(entranceDoor);
             Debug.Log("Player existente reposicionado.");
         }
     }
 
-    // Método para reposicionar o jogador na nova sala
-    void RepositionPlayer()
+    /// <summary>
+    /// Reposiciona o jogador na nova sala usando o ponto de spawn associado à porta de saída.
+    /// </summary>
+    /// <param name="entranceDoor">Referência ao DoorTrigger pela qual o jogador está entrando.</param>
+    void RepositionPlayer(DoorTrigger entranceDoor)
     {
         GameObject player = GameObject.FindWithTag("Player");
         if (player != null)
         {
-            player.transform.position = GetPlayerSpawnPosition(currentRoomIndex);
+            Vector3 spawnPosition = Vector3.zero;
+            if (entranceDoor != null && entranceDoor.connectedDoorTrigger != null && entranceDoor.connectedDoorTrigger.spawnPoint != null)
+            {
+                // Usa o spawnPoint da porta de saída na nova sala
+                spawnPosition = entranceDoor.connectedDoorTrigger.spawnPoint.position;
+            }
+            else
+            {
+                // Spawn padrão no centro da sala
+                GameObject room = rooms[currentRoomIndex];
+                if (room != null)
+                {
+                    spawnPosition = room.transform.position;
+                }
+                else
+                {
+                    Debug.LogError("Sala atual não está instanciada corretamente.");
+                }
+            }
+
+            player.transform.position = spawnPosition;
             Debug.Log("Player reposicionado.");
         }
         else
         {
             Debug.LogError("Jogador não encontrado na cena.");
         }
-    }
-
-    // Método para obter a posição de spawn do jogador dentro de uma sala
-    Vector3 GetPlayerSpawnPosition(int roomIndex)
-    {
-        GameObject room = rooms[roomIndex];
-        // Supondo que o player deve spawnar no centro da sala com um offset específico
-        return room.transform.position + playerSpawnOffset;
     }
 }

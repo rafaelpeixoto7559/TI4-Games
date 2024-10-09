@@ -279,7 +279,8 @@ public class Graph
     }
 
 
-    private void ConnectDoors(int roomAIndex, DoorDirection doorA, int roomBIndex, DoorDirection doorB)
+    // Graph.cs (Dentro da classe Graph)
+    public void ConnectDoors(int roomAIndex, DoorDirection doorA, int roomBIndex, DoorDirection doorB)
     {
         GameObject roomA = rooms[roomAIndex];
         GameObject roomB = rooms[roomBIndex];
@@ -292,13 +293,19 @@ public class Graph
             doorTriggerA.connectedRoomIndex = roomBIndex;
             doorTriggerB.connectedRoomIndex = roomAIndex;
 
-            Debug.Log($"Connected Room {roomAIndex} (Door {doorA}) with Room {roomBIndex} (Door {doorB})");
+            // Estabelece a referência mútua entre os DoorTriggers
+            doorTriggerA.connectedDoorTrigger = doorTriggerB;
+            doorTriggerB.connectedDoorTrigger = doorTriggerA;
+
+            Debug.Log($"Conectou Sala {roomAIndex} (Porta {doorA}) com Sala {roomBIndex} (Porta {doorB})");
         }
         else
         {
-            Debug.LogError($"Failed to connect doors between Room {roomAIndex} and Room {roomBIndex}");
+            Debug.LogError($"Falha ao conectar as portas entre Sala {roomAIndex} e Sala {roomBIndex}");
         }
     }
+
+
 
 
     private DoorTrigger GetDoorTrigger(GameObject room, DoorDirection doorDirection)
