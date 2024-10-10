@@ -9,7 +9,7 @@ public class SliderTextUpdater : MonoBehaviour
     void Start()
     {
         // Atualiza o texto inicialmente
-        UpdateText(slider.value);
+        UpdateText(50);
 
         // Adiciona um listener ao Slider para atualizar o texto quando o valor mudar
         slider.onValueChanged.AddListener(UpdateText);
