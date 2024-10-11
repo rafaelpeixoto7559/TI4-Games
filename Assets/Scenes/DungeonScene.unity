@@ -274,11 +274,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 807a6578cfd60f741a509775fd230402, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  room1Prefab: {fileID: 5994954086922193401, guid: 567b0adf04c7c5b44b2703c0d5578433,
+  room1Prefab: {fileID: 5994954086922193401, guid: f3b5743d99816d342b986abbe3f7a28d,
     type: 3}
-  room2Prefab: {fileID: 5837880585626680978, guid: 6c33ea9d954d4ef46b7f6a9d2ff5c7cf,
+  room2Prefab: {fileID: 5994954086922193401, guid: de65c3a908e55d04486f4b7ff9d74110,
     type: 3}
-  room3Prefab: {fileID: 7750741305291260299, guid: 138af0e68da555344a573977e80b8136,
+  room3Prefab: {fileID: 5994954086922193401, guid: f0d1cd2dba07f3949862608dd4d20b2b,
     type: 3}
   playerPrefab: {fileID: 3974211980830810717, guid: bd49d3598e116e542861d0a772d0e0f8,
     type: 3}
