@@ -24,7 +24,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: fd8edec2d605cfd42bd4bb7729cdf4b2, type: 2}
+  m_Motion: {fileID: 7400000, guid: 8ec524aacaf156a43adcd452263bf2db, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: IsMoving
@@ -54,7 +54,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: f744acceb14c66a4ea5828b8fe9e0045, type: 2}
+  m_Motion: {fileID: 7400000, guid: 920557e2b7736e944b9e35ab7540e6aa, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -102,7 +102,7 @@ AnimatorStateMachine:
     m_Position: {x: 290, y: -210, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -7173013781229802076}
-    m_Position: {x: 290, y: 310, z: 0}
+    m_Position: {x: 280, y: 310, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -7897255929514159321}
     m_Position: {x: 670, y: -60, z: 0}
@@ -218,7 +218,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 56172320411f723459b00ccc9349b9c1, type: 2}
+  m_Motion: {fileID: 7400000, guid: 610094e0cf7296544a2503b8167e552f, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -363,7 +363,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pixil-frame-0_4_0
+  m_Name: Blue
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: Direction
@@ -618,7 +618,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: ea081efd60d02364abe88fa067dfb215, type: 2}
+  m_Motion: {fileID: 7400000, guid: 1c56d71bcf25a84449006065b93365d8, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -645,7 +645,7 @@ AnimatorStateTransition:
   m_TransitionOffset: 0
   m_ExitTime: 0
   m_HasExitTime: 0
-  m_HasFixedDuration: 1
+  m_HasFixedDuration: 0
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
@@ -671,7 +671,7 @@ AnimatorStateTransition:
   serializedVersion: 3
   m_TransitionDuration: 0
   m_TransitionOffset: 0
-  m_ExitTime: 0.75
+  m_ExitTime: 0
   m_HasExitTime: 0
   m_HasFixedDuration: 0
   m_InterruptionSource: 0
