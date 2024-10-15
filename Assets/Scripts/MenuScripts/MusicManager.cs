@@ -19,6 +19,12 @@ public class MusicManager : MonoBehaviour
 
         // Pega o AudioSource que está no mesmo GameObject
         audioSource = GetComponent<AudioSource>();
+
+        // Define o volume padrão como 5% (0.05)
+        if (audioSource != null)
+        {
+            audioSource.volume = 0.05f;
+        }
     }
 
     // Função para ajustar o volume da música
