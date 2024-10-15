@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9aa293d8c8e45cd47beb7c613c34f5a5
+guid: c0e14b94a9d1c3a40b3fd6ed064da506
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -93,30 +93,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: pixil-frame-0_4_0
+      name: pixil-layer-cobrita2-final_0
       rect:
         serializedVersion: 2
-        x: 852
-        y: 1200
-        width: 204
-        height: 288
+        x: 214
+        y: 2230
+        width: 424
+        height: 448
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,20 +111,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d190f6a61b93b0049a56e09bfdadd519
-      internalID: -307494574
+      spriteID: a6d1e185050916e4490b5b05b94d389f
+      internalID: -1295914979
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixil-frame-0_4_1
+      name: pixil-layer-cobrita2-final_1
       rect:
         serializedVersion: 2
-        x: 468
-        y: 1199
-        width: 204
-        height: 288
+        x: 898
+        y: 2230
+        width: 424
+        height: 448
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -145,20 +132,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3df5eaba72e6c4a4cb2c9395b449106b
-      internalID: 851826999
+      spriteID: f1a5a533bc3d6ab4a82563f907868962
+      internalID: -1876509254
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixil-frame-0_4_2
+      name: pixil-layer-cobrita2-final_2
       rect:
         serializedVersion: 2
-        x: 84
-        y: 1200
-        width: 204
-        height: 288
+        x: 1678
+        y: 2230
+        width: 424
+        height: 448
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -166,20 +153,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a17394e981b0f7f45a5c190ca528b73e
-      internalID: 1024893153
+      spriteID: 941ceb6762c59f743bf6ee1eca6e9cd5
+      internalID: -1851776680
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixil-frame-0_4_3
+      name: pixil-layer-cobrita2-final_3
       rect:
         serializedVersion: 2
-        x: 408
-        y: 792
-        width: 300
-        height: 264
+        x: 2386
+        y: 2235
+        width: 424
+        height: 448
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -187,20 +174,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 04c075dccfa1efb48b6ca1c53c15c8fa
-      internalID: 1185594215
+      spriteID: 2502928ea043ca64fb6178943b4d5e30
+      internalID: 241072800
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixil-frame-0_4_4
+      name: pixil-layer-cobrita2-final_4
       rect:
         serializedVersion: 2
-        x: 804
-        y: 792
-        width: 300
-        height: 264
+        x: 178
+        y: 1606
+        width: 532
+        height: 424
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -208,20 +195,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6189ca17f648f714b91e4b5427f08f4c
-      internalID: 720669212
+      spriteID: 9c3b6d990df7ed3439683f19dc933585
+      internalID: 1431820615
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixil-frame-0_4_5
+      name: pixil-layer-cobrita2-final_5
       rect:
         serializedVersion: 2
-        x: 36
-        y: 792
-        width: 300
-        height: 264
+        x: 862
+        y: 1606
+        width: 532
+        height: 424
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -229,20 +216,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0e6ef25f8b889564cacfbe2197cc024b
-      internalID: -1511149251
+      spriteID: fce343c35d06d8a4ea654f4828390a55
+      internalID: 1880018482
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixil-frame-0_4_6
+      name: pixil-layer-cobrita2-final_6
       rect:
         serializedVersion: 2
-        x: 471
-        y: 409
-        width: 204
-        height: 288
+        x: 1630
+        y: 1606
+        width: 532
+        height: 424
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -250,20 +237,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a4f6c5c25b2db794ba24f4d4cbd95637
-      internalID: -1896443108
+      spriteID: 877461a405aa8944083e23d87cf3e654
+      internalID: -714509105
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixil-frame-0_4_7
+      name: pixil-layer-cobrita2-final_7
       rect:
         serializedVersion: 2
-        x: 84
-        y: 420
-        width: 204
-        height: 288
+        x: 2362
+        y: 1606
+        width: 532
+        height: 424
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -271,20 +258,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9f67280520eed324fbb6cf6b405cfb52
-      internalID: -761081360
+      spriteID: 0da87fb08b4404a49bdb956ace97fcf5
+      internalID: -1868808047
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixil-frame-0_4_8
+      name: pixil-layer-cobrita2-final_8
       rect:
         serializedVersion: 2
-        x: 852
-        y: 420
-        width: 204
-        height: 288
+        x: 154
+        y: 970
+        width: 532
+        height: 424
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -292,20 +279,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1ddef507cfcbe0647b2a4ed8311ad0a0
-      internalID: 423144321
+      spriteID: d5cd9eac5a54b2046a34a42c271da527
+      internalID: 1607242416
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixil-frame-0_4_9
+      name: pixil-layer-cobrita2-final_9
       rect:
         serializedVersion: 2
-        x: 36
-        y: 24
-        width: 300
-        height: 264
+        x: 934
+        y: 970
+        width: 532
+        height: 424
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -313,20 +300,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6d754f89c28d98b4fbde3e45a03d471f
-      internalID: -290289413
+      spriteID: 9ea34a5f1f651364aa9346f7edbfff87
+      internalID: 1323103288
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixil-frame-0_4_10
+      name: pixil-layer-cobrita2-final_10
       rect:
         serializedVersion: 2
-        x: 432
-        y: 24
-        width: 300
-        height: 264
+        x: 1654
+        y: 970
+        width: 532
+        height: 424
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -334,20 +321,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b70c90a7438535e40a7b020d22122f0b
-      internalID: -1710345279
+      spriteID: 4c323ae70abfc994e8cf1fc53ea79e01
+      internalID: 147578529
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pixil-frame-0_4_11
+      name: pixil-layer-cobrita2-final_11
       rect:
         serializedVersion: 2
-        x: 804
-        y: 24
-        width: 300
-        height: 264
+        x: 2386
+        y: 970
+        width: 532
+        height: 424
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -355,8 +342,92 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: db10575522ce122498a4abf44317e817
-      internalID: 1685790026
+      spriteID: 2b36d318d99bd1c40844be4b15d82b1f
+      internalID: -1131486082
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-cobrita2-final_12
+      rect:
+        serializedVersion: 2
+        x: 190
+        y: 286
+        width: 388
+        height: 472
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a00375fbde78c064684341bb291c54c7
+      internalID: 29191795
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-cobrita2-final_13
+      rect:
+        serializedVersion: 2
+        x: 939
+        y: 298
+        width: 388
+        height: 472
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e65fc6f52d48eba4685d6ef9d79e03a3
+      internalID: -1118870217
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-cobrita2-final_14
+      rect:
+        serializedVersion: 2
+        x: 1690
+        y: 286
+        width: 388
+        height: 472
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef6c009b9a022df4ea263c39b3c8ff6e
+      internalID: -2050077454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-cobrita2-final_15
+      rect:
+        serializedVersion: 2
+        x: 2362
+        y: 298
+        width: 388
+        height: 472
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: abddf138d1e0b044d9ba79db010aeb82
+      internalID: -1008856394
       vertices: []
       indices: 
       edges: []
@@ -372,18 +443,23 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      pixil-frame-0_4_0: -307494574
-      pixil-frame-0_4_1: 851826999
-      pixil-frame-0_4_10: -1710345279
-      pixil-frame-0_4_11: 1685790026
-      pixil-frame-0_4_2: 1024893153
-      pixil-frame-0_4_3: 1185594215
-      pixil-frame-0_4_4: 720669212
-      pixil-frame-0_4_5: -1511149251
-      pixil-frame-0_4_6: -1896443108
-      pixil-frame-0_4_7: -761081360
-      pixil-frame-0_4_8: 423144321
-      pixil-frame-0_4_9: -290289413
+      pixil-layer-cobrita2-final_0: -1295914979
+      pixil-layer-cobrita2-final_1: -1876509254
+      pixil-layer-cobrita2-final_10: 147578529
+      pixil-layer-cobrita2-final_11: -1131486082
+      pixil-layer-cobrita2-final_12: 29191795
+      pixil-layer-cobrita2-final_13: -1118870217
+      pixil-layer-cobrita2-final_14: -2050077454
+      pixil-layer-cobrita2-final_15: -1008856394
+      pixil-layer-cobrita2-final_16: -1904076549
+      pixil-layer-cobrita2-final_2: -1851776680
+      pixil-layer-cobrita2-final_3: 241072800
+      pixil-layer-cobrita2-final_4: 1431820615
+      pixil-layer-cobrita2-final_5: 1880018482
+      pixil-layer-cobrita2-final_6: -714509105
+      pixil-layer-cobrita2-final_7: -1868808047
+      pixil-layer-cobrita2-final_8: 1607242416
+      pixil-layer-cobrita2-final_9: 1323103288
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
