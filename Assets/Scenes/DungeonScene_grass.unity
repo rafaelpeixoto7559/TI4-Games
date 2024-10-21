@@ -274,16 +274,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 807a6578cfd60f741a509775fd230402, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  room1Prefab: {fileID: 5994954086922193401, guid: ab64fb9bb3395934bb378468d191b41b,
+  room1Prefab: {fileID: 5994954086922193401, guid: f3b5743d99816d342b986abbe3f7a28d,
     type: 3}
-  room2Prefab: {fileID: 5994954086922193401, guid: 1264a215a9ed648458c412d99cc30561,
+  room2Prefab: {fileID: 5994954086922193401, guid: de65c3a908e55d04486f4b7ff9d74110,
     type: 3}
-  room3Prefab: {fileID: 5994954086922193401, guid: 88fc0f1e52266e142bb65dd760b0d079,
+  room3Prefab: {fileID: 5994954086922193401, guid: f0d1cd2dba07f3949862608dd4d20b2b,
     type: 3}
+  bossRoomPrefab: {fileID: 5994954086922193401, guid: e54a17acb205a1a4f8e65931e1bb891d,
+    type: 3}
+  bossMusicClip: {fileID: 8300000, guid: b021a8802dd64c8428ce175ae81ff8e9, type: 3}
   playerPrefab: {fileID: 3974211980830810717, guid: bd49d3598e116e542861d0a772d0e0f8,
     type: 3}
   playerSpawnOffset: {x: 0, y: -2, z: -6}
-  numberOfRooms: 10
+  numberOfRooms: 7
   mainCamera: {fileID: 1512252403}
 --- !u!1 &2091370271
 GameObject:
@@ -314,7 +317,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 306afd95436c00c44b1c35289a175e86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  newMusic: {fileID: 8300000, guid: 33b88b4fb1a4e924fbe159e091e0cbf3, type: 3}
+  newMusic: {fileID: 8300000, guid: d0f1df21f5598814f85d8136ff59d20f, type: 3}
 --- !u!4 &2091370273
 Transform:
   m_ObjectHideFlags: 0

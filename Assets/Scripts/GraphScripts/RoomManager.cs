@@ -12,6 +12,13 @@ public class RoomManager : MonoBehaviour
     public GameObject room2Prefab;  // Sala com 2 portas
     public GameObject room3Prefab;  // Sala com 3 portas
 
+    [Header("Boss Room Prefab")]
+    public GameObject bossRoomPrefab;
+
+    [Header("Music Settings")]
+    public AudioClip bossMusicClip;  // Música do boss
+
+
     private GameObject[] roomPrefabs;
 
     [Header("Player Settings")]
@@ -19,7 +26,9 @@ public class RoomManager : MonoBehaviour
     public Vector3 playerSpawnOffset = Vector3.zero; // Offset para spawnar o jogador dentro da sala
 
     [Header("Graph Settings")]
-    public int numberOfRooms = 15;  // Número total de salas
+    public int numberOfRooms = 7;  // Número de salas regulares (sem incluir a sala do Boss)
+
+    private int totalRooms;
 
     [Header("Camera Settings")]
     public Camera mainCamera; // Referência para a câmera principal
@@ -44,11 +53,13 @@ public class RoomManager : MonoBehaviour
 
     void Start()
     {
-        // Inicializa o array de prefabs de salas
-        roomPrefabs = new GameObject[3]; // Supondo 3 tipos de salas
+        roomPrefabs = new GameObject[4]; // Agora temos 4 tipos de salas
         roomPrefabs[(int)RoomType.Sala1] = room1Prefab;
         roomPrefabs[(int)RoomType.Sala2] = room2Prefab;
         roomPrefabs[(int)RoomType.Sala3] = room3Prefab;
+        roomPrefabs[(int)RoomType.BossRoom] = bossRoomPrefab;
+
+        totalRooms = numberOfRooms + 1; // Incluindo a sala do Boss
 
         if (mainCamera == null)
         {
@@ -63,7 +74,8 @@ public class RoomManager : MonoBehaviour
         // Gera o grafo
         InstantiateRooms(); // Instancia as salas primeiro
 
-        graph = new Graph(numberOfRooms, rooms.ToArray()); // Passa as salas instanciadas para o grafo
+        // Corrigido aqui: usando totalRooms
+        graph = new Graph(totalRooms, rooms.ToArray()); // Passa as salas instanciadas para o grafo
         graph.GenerateConnectedGraph();
         graph.AssignRoomTypes();
         InstantiateRoomsWithTypes();
@@ -76,6 +88,10 @@ public class RoomManager : MonoBehaviour
         string dot = graph.ToDotFormat();
         Debug.Log("Representação do Grafo em DOT:\n" + dot);
 
+        int bossRoomIndex = totalRooms - 1;
+        int playerSpawnRoomIndex = graph.FindNodeFurthestFrom(bossRoomIndex);
+        currentRoomIndex = playerSpawnRoomIndex;
+
         // Verifica se todas as portas estão alinhadas corretamente
         if (graph.VerifyAllDoorsAligned())
         {
@@ -86,10 +102,10 @@ public class RoomManager : MonoBehaviour
             Debug.LogError("Há portas desalinhadas nas salas. Verifique a lógica de rotacionamento.");
         }
 
-        // Ativa apenas a primeira sala inicialmente
-        ShowRoom(0);  // Começa no índice de sala 0
+        // Ativa apenas a sala atual
+        ShowRoom(currentRoomIndex);
 
-        // Spawna o jogador na primeira sala
+        // Spawna o jogador na sala inicial
         SpawnPlayer(null); // Usa null para spawnar no centro ou posição padrão
 
         // Atribui a câmera para seguir o jogador
@@ -115,27 +131,36 @@ public class RoomManager : MonoBehaviour
         }
     }
 
+    void InstantiateRooms()
+    {
+        for (int i = 0; i < totalRooms; i++)
+        {
+            rooms.Add(null);
+        }
+    }
+
     void InstantiateRoomsWithTypes()
     {
-        for (int i = 0; i < numberOfRooms; i++)
+        for (int i = 0; i < totalRooms; i++)
         {
             RoomType roomType = graph.roomTypes[i];
             GameObject roomPrefab = roomPrefabs[(int)roomType];
             GameObject roomInstance = Instantiate(roomPrefab);
             roomInstance.name = $"Room_{i}";
+
+            // Desativa a sala imediatamente após a instanciação
+            roomInstance.SetActive(false);
+
+            // Verifica o número de DoorTriggers na sala
+            DoorTrigger[] doorTriggers = roomInstance.GetComponentsInChildren<DoorTrigger>(true);
+            Debug.Log($"Sala {i} ({roomType}) tem {doorTriggers.Length} portas.");
+
             rooms[i] = roomInstance;
         }
     }
 
-    void InstantiateRooms()
-    {
-        // Instancia e configura todas as salas
-        for (int i = 0; i < numberOfRooms; i++)
-        {
-            // Adiciona um placeholder na lista de salas
-            rooms.Add(null);
-        }
-    }
+
+
 
     /// <summary>
     /// Transita para a sala especificada, posicionando o jogador no ponto de spawn associado à porta de saída.
@@ -160,6 +185,16 @@ public class RoomManager : MonoBehaviour
 
         // Reposiciona o jogador na nova sala usando o ponto de spawn associado à porta de saída
         RepositionPlayer(entranceDoor);
+
+        // Verifica se entrou na sala do boss e troca a música
+        if (roomIndex == totalRooms - 1)  // O último índice é a sala do boss
+        {
+            Debug.Log("Entrou na sala do Boss. Trocando a música.");
+            if (MusicManager.GetInstance() != null)
+            {
+                MusicManager.GetInstance().PlayMusic(bossMusicClip);  // Toca a música do boss
+            }
+        }
     }
 
     // Método para ativar apenas uma sala, desativando todas as outras
