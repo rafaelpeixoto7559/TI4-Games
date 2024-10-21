@@ -15,6 +15,9 @@ public class RoomManager : MonoBehaviour
     [Header("Boss Room Prefab")]
     public GameObject bossRoomPrefab;
 
+    [Header("Music Settings")]
+    public AudioClip bossMusicClip;  // Música do boss
+
 
     private GameObject[] roomPrefabs;
 
@@ -48,7 +51,7 @@ public class RoomManager : MonoBehaviour
         }
     }
 
-  void Start()
+    void Start()
     {
         roomPrefabs = new GameObject[4]; // Agora temos 4 tipos de salas
         roomPrefabs[(int)RoomType.Sala1] = room1Prefab;
@@ -182,6 +185,16 @@ public class RoomManager : MonoBehaviour
 
         // Reposiciona o jogador na nova sala usando o ponto de spawn associado à porta de saída
         RepositionPlayer(entranceDoor);
+
+        // Verifica se entrou na sala do boss e troca a música
+        if (roomIndex == totalRooms - 1)  // O último índice é a sala do boss
+        {
+            Debug.Log("Entrou na sala do Boss. Trocando a música.");
+            if (MusicManager.GetInstance() != null)
+            {
+                MusicManager.GetInstance().PlayMusic(bossMusicClip);  // Toca a música do boss
+            }
+        }
     }
 
     // Método para ativar apenas uma sala, desativando todas as outras
