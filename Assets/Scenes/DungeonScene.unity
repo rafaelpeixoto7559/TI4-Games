@@ -280,10 +280,12 @@ MonoBehaviour:
     type: 3}
   room3Prefab: {fileID: 5994954086922193401, guid: 88fc0f1e52266e142bb65dd760b0d079,
     type: 3}
+  bossRoomPrefab: {fileID: 5994954086922193401, guid: e54a17acb205a1a4f8e65931e1bb891d,
+    type: 3}
   playerPrefab: {fileID: 3974211980830810717, guid: bd49d3598e116e542861d0a772d0e0f8,
     type: 3}
   playerSpawnOffset: {x: 0, y: -2, z: -6}
-  numberOfRooms: 10
+  numberOfRooms: 7
   mainCamera: {fileID: 1512252403}
 --- !u!1 &2091370271
 GameObject:
