@@ -7,7 +7,8 @@ public enum RoomType
 {
     Sala1, // 1 porta
     Sala2, // 2 portas
-    Sala3  // 3 portas
+    Sala3, // 3 portas
+    BossRoom // Sala do Boss
 }
 
 public class Graph
@@ -39,7 +40,7 @@ public class Graph
             adjacencyList[i] = new List<int>();
             roomUsedDoors[i] = new List<DoorDirection>();
             roomRotations[i] = -1;
-            roomMaxDegrees.Add(3); // Inicialmente, assumimos que o grau máximo é 3
+            roomMaxDegrees.Add(3); // Você pode ajustar isso conforme necessário
         }
     }
 
@@ -51,37 +52,52 @@ public class Graph
         {
             int degree = adjacencyList[i].Count;
 
-            if (degree == 1)
+            if (i == Vertices - 1)
             {
-                roomTypes[i] = RoomType.Sala1;
+                // Último índice é a sala do Boss
+                roomTypes[i] = RoomType.BossRoom;
                 roomMaxDegrees[i] = 1;
-            }
-            else if (degree == 2)
-            {
-                roomTypes[i] = RoomType.Sala2;
-                roomMaxDegrees[i] = 2;
-            }
-            else if (degree == 3)
-            {
-                roomTypes[i] = RoomType.Sala3;
-                roomMaxDegrees[i] = 3;
             }
             else
             {
-                Debug.LogError($"Vertex {i} has an unexpected degree of {degree}");
+                if (degree == 1)
+                {
+                    roomTypes[i] = RoomType.Sala1;
+                    roomMaxDegrees[i] = 1;
+                }
+                else if (degree == 2)
+                {
+                    roomTypes[i] = RoomType.Sala2;
+                    roomMaxDegrees[i] = 2;
+                }
+                else if (degree == 3)
+                {
+                    roomTypes[i] = RoomType.Sala3;
+                    roomMaxDegrees[i] = 3;
+                }
+                else
+                {
+                    Debug.LogError($"Vertex {i} has an unexpected degree of {degree}");
+                }
             }
 
             Debug.Log($"Assigned RoomType {roomTypes[i]} to vertex {i} with degree {degree}");
         }
     }
 
+
+
     public void UpdateRoomInstances(GameObject[] roomInstances)
     {
         rooms = roomInstances;
     }
 
-    public void GenerateConnectedGraph()
+   public void GenerateConnectedGraph()
     {
+        // Atualize o número total de vértices para incluir a sala do Boss
+        int bossRoomIndex = Vertices - 1; // O último índice será a sala do Boss
+        int regularRoomCount = Vertices - 1; // Número de salas regulares
+
         int maxRetries = 100;
         for (int attempt = 0; attempt < maxRetries; attempt++)
         {
@@ -92,9 +108,9 @@ public class Graph
             }
 
             List<Edge> allPossibleEdges = new List<Edge>();
-            for (int i = 0; i < Vertices; i++)
+            for (int i = 0; i < regularRoomCount; i++)
             {
-                for (int j = i + 1; j < Vertices; j++)
+                for (int j = i + 1; j < regularRoomCount; j++)
                 {
                     allPossibleEdges.Add(new Edge(i, j));
                 }
@@ -102,14 +118,14 @@ public class Graph
 
             Shuffle(allPossibleEdges);
 
-            UnionFind uf = new UnionFind(Vertices);
+            UnionFind uf = new UnionFind(regularRoomCount);
             List<Edge> spanningTree = new List<Edge>();
             int attemptsCount = 0;
             int maxAttempts = 1000;
 
             foreach (var edge in allPossibleEdges)
             {
-                if (spanningTree.Count == Vertices - 1)
+                if (spanningTree.Count == regularRoomCount - 1)
                     break;
 
                 if (attemptsCount >= maxAttempts)
@@ -126,26 +142,83 @@ public class Graph
                     adjacencyList[dest].Count < roomMaxDegrees[dest])
                 {
                     uf.Union(src, dest);
-                    AddEdge(edge.Source, edge.Destination);
+                    AddEdge(src, dest);
                     spanningTree.Add(edge);
                 }
 
                 attemptsCount++;
             }
 
-            if (spanningTree.Count == Vertices - 1 && IsConnected())
+            if (spanningTree.Count == regularRoomCount - 1 && IsConnected(regularRoomCount))
             {
                 Debug.Log($"Connected spanning tree generated successfully on attempt {attempt + 1}.");
+
+                // Após gerar o grafo conectado, adicione a sala do Boss
+                int nodeA = FindSuitableNodeForBossRoom();
+
+                if (nodeA == -1)
+                {
+                    Debug.LogWarning("No suitable node found to connect the Boss Room. Retrying...");
+                    continue;
+                }
+
+                // Adiciona uma aresta entre nodeA e a sala do Boss
+                AddEdge(nodeA, bossRoomIndex);
+                // adjacencyList[nodeA].Add(bossRoomIndex);
+                // adjacencyList[bossRoomIndex].Add(nodeA);
+
+                // Atualiza roomMaxDegrees e roomTypes
+                roomMaxDegrees[nodeA] = adjacencyList[nodeA].Count; // Atualiza com o grau atual
+                roomMaxDegrees[bossRoomIndex] = 1; // A sala do Boss tem apenas uma porta
+
+                roomTypes[nodeA] = RoomType.Sala2; // Atualiza o tipo de sala para 2 portas
+                roomTypes[bossRoomIndex] = RoomType.BossRoom;
+
+                // Verifica o grau do nó após a atualização
+                Debug.Log($"Nó {nodeA} conectado à sala do Boss. Novo grau: {adjacencyList[nodeA].Count}");
+
+                // Atribui os tipos de sala
+                AssignRoomTypes();
+
                 return;
             }
             else
             {
-                Debug.LogWarning($"Attempt {attempt + 1}: Failed to generate a valid connected spanning tree. Trying again...");
+                Debug.LogWarning($"Attempt {attempt + 1}: Failed to generate a valid connected graph. Trying again...");
             }
         }
 
-        Debug.LogError("Failed to generate a connected spanning tree after multiple attempts. Check degree constraints or the number of vertices.");
+        Debug.LogError("Failed to generate a connected graph after multiple attempts. Check degree constraints or the number of vertices.");
     }
+
+
+
+
+    public int FindSuitableNodeForBossRoom()
+    {
+        int[] distances;
+        BFS(0, out distances);
+
+        int maxDistance = -1;
+        int nodeA = -1;
+        for (int i = 0; i < Vertices - 1; i++) // Exclui a sala do Boss
+        {
+            if (adjacencyList[i].Count == 1) // Procurar nós com grau 1 (extremidades)
+            {
+                if (distances[i] > maxDistance)
+                {
+                    maxDistance = distances[i];
+                    nodeA = i;
+                }
+            }
+        }
+        return nodeA;
+    }
+
+
+
+
+
 
     public void AlignAndConnectDoors(int startRoomIndex)
     {
@@ -153,6 +226,55 @@ public class Graph
         roomRotations[startRoomIndex] = 0; // Define a rotação inicial para a sala de início
         AlignAndConnectDoorsRecursive(startRoomIndex, visited);
     }
+
+
+    private void BFS(int startNode, out int[] distances)
+    {
+        distances = new int[Vertices];
+        for (int i = 0; i < Vertices; i++)
+        {
+            distances[i] = -1;
+        }
+        distances[startNode] = 0;
+
+        Queue<int> queue = new Queue<int>();
+        queue.Enqueue(startNode);
+
+        while (queue.Count > 0)
+        {
+            int current = queue.Dequeue();
+
+            foreach (int neighbor in adjacencyList[current])
+            {
+                if (distances[neighbor] == -1)
+                {
+                    distances[neighbor] = distances[current] + 1;
+                    queue.Enqueue(neighbor);
+                }
+            }
+        }
+    }
+
+
+
+    public int FindNodeFurthestFrom(int startNode)
+    {
+        int[] distances;
+        BFS(startNode, out distances);
+
+        int maxDistance = -1;
+        int furthestNode = -1;
+        for (int i = 0; i < Vertices; i++)
+        {
+            if (distances[i] > maxDistance)
+            {
+                maxDistance = distances[i];
+                furthestNode = i;
+            }
+        }
+        return furthestNode;
+    }
+
 
     private void AlignAndConnectDoorsRecursive(int currentRoom, bool[] visited)
     {
@@ -191,7 +313,7 @@ public class Graph
             // Atualize as direções das portas na sala neighbor
             UpdateDoorDirections(rooms[neighbor], rotation);
 
-            // **Novo código: Rotaciona graficamente a sala neighbor**
+            // Rotaciona graficamente a sala neighbor
             RotateRoomGameObject(rooms[neighbor], rotation);
 
             Debug.Log($"Rotated Room {neighbor} to {rotation * 90} degrees to align door {requiredDoorInNeighbor}");
@@ -208,6 +330,7 @@ public class Graph
             AlignAndConnectDoorsRecursive(neighbor, visited);
         }
     }
+
 
 
     private void RotateRoomGameObject(GameObject roomGO, int rotationIndex)
@@ -237,6 +360,8 @@ public class Graph
         Debug.LogError($"Room {roomIndex} has no unused doors");
         return DoorDirection.None;
     }
+
+
 
 
     private int GetRotationForDoor(int roomIndex, DoorDirection requiredDoor)
@@ -353,11 +478,16 @@ public class Graph
         {
             return new List<DoorDirection> { DoorDirection.East, DoorDirection.West, DoorDirection.South };
         }
+        else if (roomTypes[roomIndex] == RoomType.BossRoom)
+        {
+            return new List<DoorDirection> { DoorDirection.South };
+        }
         else
         {
             return new List<DoorDirection>();
         }
     }
+
 
     private void AddEdge(int source, int destination)
     {
@@ -368,12 +498,12 @@ public class Graph
         Debug.Log($"Added edge: {source} -- {destination}");
     }
 
-    public bool IsConnected()
+    public bool IsConnected(int vertexCount)
     {
         bool[] visited = new bool[Vertices];
         DFS(0, visited);
 
-        for (int i = 0; i < Vertices; i++)
+        for (int i = 0; i < vertexCount; i++)
         {
             if (!visited[i])
                 return false;
@@ -381,6 +511,7 @@ public class Graph
 
         return true;
     }
+
 
     private void DFS(int vertex, bool[] visited)
     {
