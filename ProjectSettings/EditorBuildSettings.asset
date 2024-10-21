@@ -12,9 +12,15 @@ EditorBuildSettings:
     path: Assets/Scenes/LobbyScene.unity
     guid: 35adafa2c8758d242aa1c9743268f8fe
   - enabled: 1
-    path: Assets/Scenes/DungeonScene.unity
+    path: Assets/Scenes/DungeonScene_grass.unity
     guid: b95986116fa65324e9f12643058abf88
   - enabled: 1
     path: Assets/Scenes/ConfigScene.unity
     guid: 690f54f45459c4741b6d0a604662e2d3
+  - enabled: 1
+    path: Assets/Scenes/DungeonScene_ice.unity
+    guid: 53d0cb4747128cc49886e1190d2d1754
+  - enabled: 1
+    path: Assets/Scenes/DungeonScene_rock.unity
+    guid: b7c9d48a86247d840afb960ae6af10a9
   m_configObjects: {}
