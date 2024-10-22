@@ -44,8 +44,6 @@ public class Graph
         }
     }
 
-
-
     public void AssignRoomTypes()
     {
         for (int i = 0; i < Vertices; i++)
@@ -84,9 +82,6 @@ public class Graph
             Debug.Log($"Assigned RoomType {roomTypes[i]} to vertex {i} with degree {degree}");
         }
     }
-
-
-
     public void UpdateRoomInstances(GameObject[] roomInstances)
     {
         rooms = roomInstances;
@@ -191,9 +186,6 @@ public class Graph
         Debug.LogError("Failed to generate a connected graph after multiple attempts. Check degree constraints or the number of vertices.");
     }
 
-
-
-
     public int FindSuitableNodeForBossRoom()
     {
         int[] distances;
@@ -214,11 +206,6 @@ public class Graph
         }
         return nodeA;
     }
-
-
-
-
-
 
     public void AlignAndConnectDoors(int startRoomIndex)
     {
@@ -573,30 +560,28 @@ public class Graph
         }
         return DoorDirection.None;
     }
-
-
     public bool VerifyAllDoorsAligned()
-{
-    bool allAligned = true;
-    foreach (var edge in Edges)
     {
-        int roomA = edge.Source;
-        int roomB = edge.Destination;
-
-        DoorDirection doorA = GetConnectingDoor(roomA, roomB);
-        DoorDirection doorB = DirectionHelper.GetOppositeDirection(doorA);
-
-        if (!roomUsedDoors[roomA].Contains(doorA) || !roomUsedDoors[roomB].Contains(doorB))
+        bool allAligned = true;
+        foreach (var edge in Edges)
         {
-            Debug.LogError($"As portas entre a Sala {roomA} e a Sala {roomB} não estão alinhadas.");
-            allAligned = false;
+            int roomA = edge.Source;
+            int roomB = edge.Destination;
+
+            DoorDirection doorA = GetConnectingDoor(roomA, roomB);
+            DoorDirection doorB = DirectionHelper.GetOppositeDirection(doorA);
+
+            if (!roomUsedDoors[roomA].Contains(doorA) || !roomUsedDoors[roomB].Contains(doorB))
+            {
+                Debug.LogError($"As portas entre a Sala {roomA} e a Sala {roomB} não estão alinhadas.");
+                allAligned = false;
+            }
+            else
+            {
+                Debug.Log($"Portas entre a Sala {roomA} e a Sala {roomB} estão alinhadas: Sala {roomA} (Porta {doorA}), Sala {roomB} (Porta {doorB}).");
+            }
         }
-        else
-        {
-            Debug.Log($"Portas entre a Sala {roomA} e a Sala {roomB} estão alinhadas: Sala {roomA} (Porta {doorA}), Sala {roomB} (Porta {doorB}).");
-        }
+        return allAligned;
     }
-    return allAligned;
-}
 
 }
