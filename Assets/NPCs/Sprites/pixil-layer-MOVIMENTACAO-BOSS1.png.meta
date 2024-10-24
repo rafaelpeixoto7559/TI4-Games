@@ -1,0 +1,1236 @@
+fileFormatVersion: 2
+guid: b405d5f9814f33049ba9c82eadd86c91
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: pixil-layer-MOVIMENTACAO-BOSS1_0
+      rect:
+        serializedVersion: 2
+        x: 338
+        y: 4300
+        width: 603
+        height: 684
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 552eaa9d8ce810342851c957a53c05fd
+      internalID: -600279743
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-MOVIMENTACAO-BOSS1_1
+      rect:
+        serializedVersion: 2
+        x: 1033
+        y: 4297
+        width: 603
+        height: 684
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 74ebb92b9edc769448503d64c1cef64c
+      internalID: 56854634
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-MOVIMENTACAO-BOSS1_2
+      rect:
+        serializedVersion: 2
+        x: 1712
+        y: 4297
+        width: 603
+        height: 684
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0419a0b2eee36c942a69acbb21450f29
+      internalID: -1133084426
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-MOVIMENTACAO-BOSS1_3
+      rect:
+        serializedVersion: 2
+        x: 2417
+        y: 4297
+        width: 603
+        height: 684
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d6a6412d585c4b4692a7cbbaeb37fdc
+      internalID: 1417055841
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-MOVIMENTACAO-BOSS1_4
+      rect:
+        serializedVersion: 2
+        x: 3125
+        y: 4297
+        width: 603
+        height: 684
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b7c101fc7b6ac645b024def952b71d1
+      internalID: 511546687
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-MOVIMENTACAO-BOSS1_5
+      rect:
+        serializedVersion: 2
+        x: 3853
+        y: 4297
+        width: 603
+        height: 684
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c884aa7dd0159d46abbfa221ce05a7a
+      internalID: 1745986450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-MOVIMENTACAO-BOSS1_6
+      rect:
+        serializedVersion: 2
+        x: 4860
+        y: 4297
+        width: 482
+        height: 671
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9b2c56bb191f79428f58211f704a56d
+      internalID: 353515828
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-MOVIMENTACAO-BOSS1_7
+      rect:
+        serializedVersion: 2
+        x: 5759
+        y: 4297
+        width: 485
+        height: 671
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6bce116ca89a1f1429d4130488489d63
+      internalID: -2059701834
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-MOVIMENTACAO-BOSS1_8
+      rect:
+        serializedVersion: 2
+        x: 6423
+        y: 4297
+        width: 482
+        height: 671
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ac67c292cba45f4d9c1666925860bdf
+      internalID: 563562345
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-MOVIMENTACAO-BOSS1_9
+      rect:
+        serializedVersion: 2
+        x: 337
+        y: 3312
+        width: 482
+        height: 671
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4bb102467b2c78343af40a0f58642508
+      internalID: -623186751
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-MOVIMENTACAO-BOSS1_10
+      rect:
+        serializedVersion: 2
+        x: 1205
+        y: 3312
+        width: 603
+        height: 683
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6b32838fcbb2e94ea29baf83132ea38
+      internalID: 1976988467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-MOVIMENTACAO-BOSS1_11
+      rect:
+        serializedVersion: 2
+        x: 1919
+        y: 3312
+        width: 603
+        height: 683
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 49e6d796897b10548a90589b712663a1
+      internalID: 1531119587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-MOVIMENTACAO-BOSS1_12
+      rect:
+        serializedVersion: 2
+        x: 2647
+        y: 3312
+        width: 603
+        height: 683
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e397e4619c298054890da9471df06d77
+      internalID: 532990894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-MOVIMENTACAO-BOSS1_13
+      rect:
+        serializedVersion: 2
+        x: 3361
+        y: 3312
+        width: 603
+        height: 683
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b22db84472c77d4e9216388a40c7456
+      internalID: 1304824188
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-MOVIMENTACAO-BOSS1_14
+      rect:
+        serializedVersion: 2
+        x: 4060
+        y: 3312
+        width: 603
+        height: 683
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9667288d4d3a434c97c423b7d01af1d
+      internalID: -1915011286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-MOVIMENTACAO-BOSS1_15
+      rect:
+        serializedVersion: 2
+        x: 4738
+        y: 3312
+        width: 603
+        height: 683
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9fae362b21d41f34385a80177b989d70
+      internalID: 113324191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-MOVIMENTACAO-BOSS1_16
+      rect:
+        serializedVersion: 2
+        x: 5723
+        y: 3344
+        width: 504
+        height: 657
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90a01674934781f4892764d064b2d81a
+      internalID: -1179250766
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-MOVIMENTACAO-BOSS1_17
+      rect:
+        serializedVersion: 2
+        x: 6405
+        y: 3344
+        width: 500
+        height: 657
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: abebd35b57b5d5a40bec045cdf79721b
+      internalID: -1701603054
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-MOVIMENTACAO-BOSS1_18
+      rect:
+        serializedVersion: 2
+        x: 337
+        y: 2394
+        width: 482
+        height: 468
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 99cf6a19fa3157447b1e2544a0c07e18
+      internalID: -823656229
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-MOVIMENTACAO-BOSS1_19
+      rect:
+        serializedVersion: 2
+        x: 1051
+        y: 2394
+        width: 500
+        height: 432
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2ada14f84b4c8141b50671e1b80082f
+      internalID: -714239904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-MOVIMENTACAO-BOSS1_20
+      rect:
+        serializedVersion: 2
+        x: 1644
+        y: 2409
+        width: 485
+        height: 381
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 05f94a27ffeb4f1418e61b7ab20c0da6
+      internalID: -687636079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-MOVIMENTACAO-BOSS1_21
+      rect:
+        serializedVersion: 2
+        x: 2240
+        y: 2409
+        width: 503
+        height: 367
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3be9d4813629a6046bd397e37fc4e4ee
+      internalID: 829924189
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-MOVIMENTACAO-BOSS1_22
+      rect:
+        serializedVersion: 2
+        x: 2886
+        y: 2394
+        width: 535
+        height: 382
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 097030167fd0d624886413cb16f10c4d
+      internalID: -1763811786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-MOVIMENTACAO-BOSS1_23
+      rect:
+        serializedVersion: 2
+        x: 3753
+        y: 2409
+        width: 364
+        height: 453
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6dafc48fcc14da841b0014fa8cb9efc8
+      internalID: -443411497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-MOVIMENTACAO-BOSS1_24
+      rect:
+        serializedVersion: 2
+        x: 4282
+        y: 2426
+        width: 449
+        height: 436
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d029b4b7b0ce47c499e6006169644f27
+      internalID: 9380049
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-MOVIMENTACAO-BOSS1_25
+      rect:
+        serializedVersion: 2
+        x: 4860
+        y: 2341
+        width: 549
+        height: 381
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cae52008eedff424bb655f8ac2e93fbd
+      internalID: 91551985
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-MOVIMENTACAO-BOSS1_26
+      rect:
+        serializedVersion: 2
+        x: 5606
+        y: 2308
+        width: 571
+        height: 382
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41a041c01ed802f4e80ddbae1e3e93f9
+      internalID: -44994174
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-MOVIMENTACAO-BOSS1_27
+      rect:
+        serializedVersion: 2
+        x: 6288
+        y: 2580
+        width: 23
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d938793b84dd8b7478c95d9614944a66
+      internalID: -1642879373
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-MOVIMENTACAO-BOSS1_28
+      rect:
+        serializedVersion: 2
+        x: 6387
+        y: 2323
+        width: 586
+        height: 367
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e38df373b9417a4889cd42cd50bb302
+      internalID: -1183448480
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-MOVIMENTACAO-BOSS1_29
+      rect:
+        serializedVersion: 2
+        x: 337
+        y: 1409
+        width: 536
+        height: 396
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46b874c3db7fded4ebe6764628614cf3
+      internalID: -1737281363
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-MOVIMENTACAO-BOSS1_30
+      rect:
+        serializedVersion: 2
+        x: 948
+        y: 1441
+        width: 499
+        height: 364
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa14621b7720e084d90ef37923a9b50d
+      internalID: -1371013522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-MOVIMENTACAO-BOSS1_31
+      rect:
+        serializedVersion: 2
+        x: 1526
+        y: 1441
+        width: 485
+        height: 382
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dca17201681d12046897d0b0ee5a176f
+      internalID: -215373041
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-MOVIMENTACAO-BOSS1_32
+      rect:
+        serializedVersion: 2
+        x: 2104
+        y: 1423
+        width: 500
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6af81542c8042ea48aff3a3ed76699a2
+      internalID: -1174820649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-MOVIMENTACAO-BOSS1_33
+      rect:
+        serializedVersion: 2
+        x: 3021
+        y: 1409
+        width: 486
+        height: 482
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 160fd6fb2ddd9da408201706e40dcd43
+      internalID: 2120353497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-MOVIMENTACAO-BOSS1_34
+      rect:
+        serializedVersion: 2
+        x: 3789
+        y: 1355
+        width: 585
+        height: 368
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 115447455c1dd734da0665743aae5637
+      internalID: 394552114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-MOVIMENTACAO-BOSS1_35
+      rect:
+        serializedVersion: 2
+        x: 4450
+        y: 1612
+        width: 24
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1824a8d3ed690b34db3678a13c796a38
+      internalID: -788944447
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-MOVIMENTACAO-BOSS1_36
+      rect:
+        serializedVersion: 2
+        x: 4585
+        y: 1338
+        width: 571
+        height: 385
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1679cbe6175fdee4e808551e75b17355
+      internalID: 1612380717
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-MOVIMENTACAO-BOSS1_37
+      rect:
+        serializedVersion: 2
+        x: 5349
+        y: 1373
+        width: 553
+        height: 382
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d4cd19f2499eca478294554048f6ccb
+      internalID: -1797359953
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-MOVIMENTACAO-BOSS1_38
+      rect:
+        serializedVersion: 2
+        x: 6030
+        y: 1459
+        width: 450
+        height: 432
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0fb13314b0d33a947a53000e7ba702d0
+      internalID: 1820080207
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-MOVIMENTACAO-BOSS1_39
+      rect:
+        serializedVersion: 2
+        x: 6644
+        y: 1441
+        width: 364
+        height: 450
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be344fa20a32a874cb796198587f4dcf
+      internalID: -223960650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-MOVIMENTACAO-BOSS1_40
+      rect:
+        serializedVersion: 2
+        x: 337
+        y: 370
+        width: 350
+        height: 671
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c3a119ac4fe8d6448b71ccc44d051c3
+      internalID: -638743
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-MOVIMENTACAO-BOSS1_41
+      rect:
+        serializedVersion: 2
+        x: 948
+        y: 370
+        width: 350
+        height: 671
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 173742e35bcd9eb4381faae985aaed29
+      internalID: 849714359
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-MOVIMENTACAO-BOSS1_42
+      rect:
+        serializedVersion: 2
+        x: 1580
+        y: 370
+        width: 350
+        height: 671
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 995ab330e9ee2c84998400eafe6a6434
+      internalID: -1002983775
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-MOVIMENTACAO-BOSS1_43
+      rect:
+        serializedVersion: 2
+        x: 2205
+        y: 370
+        width: 350
+        height: 671
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 540d6b3ca85742740a209a0771178a9a
+      internalID: -1301808396
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-MOVIMENTACAO-BOSS1_44
+      rect:
+        serializedVersion: 2
+        x: 2768
+        y: 370
+        width: 350
+        height: 671
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 15a102799412198418810f5788a322b1
+      internalID: -1729772663
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-MOVIMENTACAO-BOSS1_45
+      rect:
+        serializedVersion: 2
+        x: 3328
+        y: 370
+        width: 350
+        height: 671
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9675426a8aa865f4f9b6907985735d83
+      internalID: 2127380694
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-MOVIMENTACAO-BOSS1_46
+      rect:
+        serializedVersion: 2
+        x: 4196
+        y: 387
+        width: 318
+        height: 654
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 99252400e82091b469dc992525845f37
+      internalID: -2003595177
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-MOVIMENTACAO-BOSS1_47
+      rect:
+        serializedVersion: 2
+        x: 4706
+        y: 387
+        width: 318
+        height: 654
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 60ec9db6c496b2642ba8e5ee1d7816f3
+      internalID: 2013836377
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-MOVIMENTACAO-BOSS1_48
+      rect:
+        serializedVersion: 2
+        x: 5217
+        y: 387
+        width: 318
+        height: 654
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 874b0a8cf7fc0db45b50b26e8a6f9b19
+      internalID: -1957573602
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-MOVIMENTACAO-BOSS1_49
+      rect:
+        serializedVersion: 2
+        x: 5723
+        y: 387
+        width: 318
+        height: 654
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3fcd637f53005884ca1aa1578c962c72
+      internalID: 955165462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-MOVIMENTACAO-BOSS1_50
+      rect:
+        serializedVersion: 2
+        x: 6505
+        y: 420
+        width: 250
+        height: 603
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 718b2232648d7f5488d5fe6d6467798d
+      internalID: -1535801653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      pixil-layer-MOVIMENTACAO-BOSS1_0: -600279743
+      pixil-layer-MOVIMENTACAO-BOSS1_1: 56854634
+      pixil-layer-MOVIMENTACAO-BOSS1_10: 1976988467
+      pixil-layer-MOVIMENTACAO-BOSS1_11: 1531119587
+      pixil-layer-MOVIMENTACAO-BOSS1_12: 532990894
+      pixil-layer-MOVIMENTACAO-BOSS1_13: 1304824188
+      pixil-layer-MOVIMENTACAO-BOSS1_14: -1915011286
+      pixil-layer-MOVIMENTACAO-BOSS1_15: 113324191
+      pixil-layer-MOVIMENTACAO-BOSS1_16: -1179250766
+      pixil-layer-MOVIMENTACAO-BOSS1_17: -1701603054
+      pixil-layer-MOVIMENTACAO-BOSS1_18: -823656229
+      pixil-layer-MOVIMENTACAO-BOSS1_19: -714239904
+      pixil-layer-MOVIMENTACAO-BOSS1_2: -1133084426
+      pixil-layer-MOVIMENTACAO-BOSS1_20: -687636079
+      pixil-layer-MOVIMENTACAO-BOSS1_21: 829924189
+      pixil-layer-MOVIMENTACAO-BOSS1_22: -1763811786
+      pixil-layer-MOVIMENTACAO-BOSS1_23: -443411497
+      pixil-layer-MOVIMENTACAO-BOSS1_24: 9380049
+      pixil-layer-MOVIMENTACAO-BOSS1_25: 91551985
+      pixil-layer-MOVIMENTACAO-BOSS1_26: -44994174
+      pixil-layer-MOVIMENTACAO-BOSS1_27: -1642879373
+      pixil-layer-MOVIMENTACAO-BOSS1_28: -1183448480
+      pixil-layer-MOVIMENTACAO-BOSS1_29: -1737281363
+      pixil-layer-MOVIMENTACAO-BOSS1_3: 1417055841
+      pixil-layer-MOVIMENTACAO-BOSS1_30: -1371013522
+      pixil-layer-MOVIMENTACAO-BOSS1_31: -215373041
+      pixil-layer-MOVIMENTACAO-BOSS1_32: -1174820649
+      pixil-layer-MOVIMENTACAO-BOSS1_33: 2120353497
+      pixil-layer-MOVIMENTACAO-BOSS1_34: 394552114
+      pixil-layer-MOVIMENTACAO-BOSS1_35: -788944447
+      pixil-layer-MOVIMENTACAO-BOSS1_36: 1612380717
+      pixil-layer-MOVIMENTACAO-BOSS1_37: -1797359953
+      pixil-layer-MOVIMENTACAO-BOSS1_38: 1820080207
+      pixil-layer-MOVIMENTACAO-BOSS1_39: -223960650
+      pixil-layer-MOVIMENTACAO-BOSS1_4: 511546687
+      pixil-layer-MOVIMENTACAO-BOSS1_40: -638743
+      pixil-layer-MOVIMENTACAO-BOSS1_41: 849714359
+      pixil-layer-MOVIMENTACAO-BOSS1_42: -1002983775
+      pixil-layer-MOVIMENTACAO-BOSS1_43: -1301808396
+      pixil-layer-MOVIMENTACAO-BOSS1_44: -1729772663
+      pixil-layer-MOVIMENTACAO-BOSS1_45: 2127380694
+      pixil-layer-MOVIMENTACAO-BOSS1_46: -2003595177
+      pixil-layer-MOVIMENTACAO-BOSS1_47: 2013836377
+      pixil-layer-MOVIMENTACAO-BOSS1_48: -1957573602
+      pixil-layer-MOVIMENTACAO-BOSS1_49: 955165462
+      pixil-layer-MOVIMENTACAO-BOSS1_5: 1745986450
+      pixil-layer-MOVIMENTACAO-BOSS1_50: -1535801653
+      pixil-layer-MOVIMENTACAO-BOSS1_6: 353515828
+      pixil-layer-MOVIMENTACAO-BOSS1_7: -2059701834
+      pixil-layer-MOVIMENTACAO-BOSS1_8: 563562345
+      pixil-layer-MOVIMENTACAO-BOSS1_9: -623186751
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
