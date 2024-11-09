@@ -9,6 +9,7 @@ namespace Cainos.PixelArtTopDown_Basic
         public float moveSpeed = 3.5f;  // Velocidade de movimentação
         public GameObject textBox;      // Arraste a caixa de texto aqui no Inspector
         public GameObject interactIcon; // Arraste o ícone "F" (objeto Keyboard) aqui no Inspector
+        public static int direction;
 
         private Animator animator;
         private Rigidbody2D rb;
@@ -39,14 +40,25 @@ namespace Cainos.PixelArtTopDown_Basic
 
             // Configuração do Animator com base na direção
             if (movement.x < 0)
+            {
                 animator.SetInteger("Direction", 3);  // Esquerda
+                direction = 3;
+            }
             else if (movement.x > 0)
+            {
                 animator.SetInteger("Direction", 2);  // Direita
-
+                direction = 2;
+            }
             if (movement.y > 0)
+            {
                 animator.SetInteger("Direction", 1);  // Cima
+                direction = 1;
+            }
             else if (movement.y < 0)
+            {
                 animator.SetInteger("Direction", 0);  // Baixo
+                direction = 0;
+            }
 
             // Normaliza a direção para evitar movimento diagonal mais rápido
             movement.Normalize();
