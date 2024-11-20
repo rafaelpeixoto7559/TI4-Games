@@ -426,6 +426,11 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1512252403}
+    - target: {fileID: 2070627188515414651, guid: a2fcdc7071e1e6a428564ddfff5507e4,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2311792675847891616, guid: a2fcdc7071e1e6a428564ddfff5507e4,
         type: 3}
       propertyPath: m_Pivot.x
@@ -535,6 +540,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ConfigLobby
+      objectReference: {fileID: 0}
+    - target: {fileID: 6924438701499229318, guid: a2fcdc7071e1e6a428564ddfff5507e4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
