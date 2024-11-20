@@ -7,10 +7,18 @@ public class RoomManager : MonoBehaviour
     // Singleton Instance
     public static RoomManager Instance { get; private set; }
 
+    [Header("Enemy Settings")]
+    public GameObject[] enemyPrefabs; // Array de prefabs de inimigos
+    public int minEnemiesPerRoom = 1; // Mínimo de inimigos por sala
+    public int maxEnemiesPerRoom = 5; // Máximo de inimigos por sala
+
+
     [Header("Room Prefabs")]
     public GameObject room1Prefab;  // Sala com 1 porta
     public GameObject room2Prefab;  // Sala com 2 portas
     public GameObject room3Prefab;  // Sala com 3 portas
+
+    private GameObject[] roomInstances;
 
     [Header("Boss Room Prefab")]
     public GameObject bossRoomPrefab;
@@ -34,7 +42,7 @@ public class RoomManager : MonoBehaviour
     public Camera mainCamera; // Referência para a câmera principal
 
     private Graph graph;
-    private List<GameObject> rooms = new List<GameObject>();  // Lista de salas instanciadas
+    private List<RoomState> rooms = new List<RoomState>();  // Lista de estados das salas
 
     private int currentRoomIndex = 0;  // Índice da sala atual em que o jogador está
 
@@ -51,7 +59,7 @@ public class RoomManager : MonoBehaviour
         }
     }
 
-    void Start()
+   void Start()
     {
         roomPrefabs = new GameObject[4]; // Agora temos 4 tipos de salas
         roomPrefabs[(int)RoomType.Sala1] = room1Prefab;
@@ -71,16 +79,16 @@ public class RoomManager : MonoBehaviour
             }
         }
 
-        // Gera o grafo
-        InstantiateRooms(); // Instancia as salas primeiro
-
-        // Corrigido aqui: usando totalRooms
-        graph = new Graph(totalRooms, rooms.ToArray()); // Passa as salas instanciadas para o grafo
+        // Corrigido aqui: usando o array de roomInstances
+        graph = new Graph(totalRooms); // Passa as salas instanciadas para o grafo
         graph.GenerateConnectedGraph();
         graph.AssignRoomTypes();
+
         InstantiateRoomsWithTypes();
 
-        graph.UpdateRoomInstances(rooms.ToArray());
+        roomInstances = GetRoomInstancesArray();
+
+        graph.UpdateRoomInstances(roomInstances);
         // Alinha e conecta as portas
         graph.AlignAndConnectDoors(0); // Começa pela sala 0
 
@@ -131,6 +139,18 @@ public class RoomManager : MonoBehaviour
         }
     }
 
+    private GameObject[] GetRoomInstancesArray()
+    {
+        GameObject[] roomInstances = new GameObject[rooms.Count];
+        for (int i = 0; i < rooms.Count; i++)
+        {
+            roomInstances[i] = rooms[i].roomInstance; // Possível NullReferenceException
+        }
+        return roomInstances;
+    }
+
+
+
     void InstantiateRooms()
     {
         for (int i = 0; i < totalRooms; i++)
@@ -141,6 +161,8 @@ public class RoomManager : MonoBehaviour
 
     void InstantiateRoomsWithTypes()
     {
+        rooms.Clear(); // Limpa a lista antes de preenchê-la
+
         for (int i = 0; i < totalRooms; i++)
         {
             RoomType roomType = graph.roomTypes[i];
@@ -151,13 +173,13 @@ public class RoomManager : MonoBehaviour
             // Desativa a sala imediatamente após a instanciação
             roomInstance.SetActive(false);
 
-            // Verifica o número de DoorTriggers na sala
-            DoorTrigger[] doorTriggers = roomInstance.GetComponentsInChildren<DoorTrigger>(true);
-            Debug.Log($"Sala {i} ({roomType}) tem {doorTriggers.Length} portas.");
-
-            rooms[i] = roomInstance;
+            // Cria o estado da sala e adiciona à lista
+            RoomState roomState = new RoomState(roomInstance);
+            rooms.Add(roomState);
         }
     }
+
+
 
 
 
@@ -175,16 +197,23 @@ public class RoomManager : MonoBehaviour
         Debug.Log($"Transitando da Sala {currentRoomIndex} para a Sala {roomIndex} via Porta {entranceDoor.doorDirection}");
 
         // Desativa a sala atual
-        rooms[currentRoomIndex].SetActive(false);
+        rooms[currentRoomIndex].roomInstance.SetActive(false);
 
         // Ativa a nova sala
-        rooms[roomIndex].SetActive(true);
+        rooms[roomIndex].roomInstance.SetActive(true);
 
         // Atualiza o índice da sala atual
         currentRoomIndex = roomIndex;
 
         // Reposiciona o jogador na nova sala usando o ponto de spawn associado à porta de saída
         RepositionPlayer(entranceDoor);
+
+        // Verifica se a sala já foi visitada
+        if (!rooms[roomIndex].isVisited)
+        {
+            SpawnEnemiesInRoom(roomIndex);
+            rooms[roomIndex].isVisited = true; // Marca a sala como visitada
+        }
 
         // Verifica se entrou na sala do boss e troca a música
         if (roomIndex == totalRooms - 1)  // O último índice é a sala do boss
@@ -197,19 +226,104 @@ public class RoomManager : MonoBehaviour
         }
     }
 
+    void SpawnEnemiesInRoom(int roomIndex)
+    {
+        // Obtenha o GameObject da sala atual
+        GameObject roomInstance = rooms[roomIndex].roomInstance;
+
+        // Certifique-se de que o roomInstance não é nulo
+        if (roomInstance == null)
+        {
+            Debug.LogError($"RoomInstance para o índice {roomIndex} é nulo.");
+            return;
+        }
+
+        // Obtenha o SpawnArea da sala
+        Transform spawnArea = roomInstance.transform.Find("SpawnArea");
+
+        // Verifique se o SpawnArea existe
+        if (spawnArea == null)
+        {
+            Debug.LogError($"SpawnArea não encontrado na sala {roomInstance.name}.");
+            return;
+        }
+
+        // Obtenha o RoomGrid da sala
+        RoomGrid roomGrid = roomInstance.GetComponent<RoomGrid>();
+        if (roomGrid == null)
+        {
+            Debug.LogError($"RoomGrid não encontrado na sala {roomInstance.name}.");
+            return;
+        }
+
+        // Determine o número de inimigos a serem spawnados nesta sala
+        int enemyCount = Random.Range(minEnemiesPerRoom, maxEnemiesPerRoom + 1);
+
+        for (int i = 0; i < enemyCount; i++)
+        {
+            // Calcule a posição de spawn dentro do SpawnArea
+            Vector3 spawnPosition = GetRandomPositionInArea(spawnArea);
+
+            // Selecione um prefab de inimigo aleatório
+            GameObject enemyPrefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
+
+            // Instancie o inimigo
+            GameObject enemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+
+            // Atribua o RoomGrid ao EnemyAI
+            EnemyAI enemyAI = enemy.GetComponent<EnemyAI>();
+            if (enemyAI != null)
+            {
+                enemyAI.roomGrid = roomGrid;
+            }
+            else
+            {
+                Debug.LogError("EnemyPrefab não tem o componente EnemyAI.");
+            }
+
+            // Opcional: ajuste o nome do inimigo para facilitar a identificação na Hierarchy
+            enemy.name = $"Enemy_{roomIndex}_{enemy.GetInstanceID()}";
+        }
+    }
+
+
+
+    Vector3 GetRandomPositionInArea(Transform area)
+    {
+        // Supondo que o area tenha um Collider2D que define a área de spawn
+        Collider2D collider = area.GetComponent<Collider2D>();
+        if (collider == null)
+        {
+            Debug.LogError("SpawnArea não possui um Collider2D.");
+            return area.position;
+        }
+
+        Bounds bounds = collider.bounds;
+        float x = Random.Range(bounds.min.x, bounds.max.x);
+        float y = Random.Range(bounds.min.y, bounds.max.y);
+
+        return new Vector3(x, y, area.position.z);
+    }
+
+
+
+
+
+
     // Método para ativar apenas uma sala, desativando todas as outras
     void ShowRoom(int roomIndex)
     {
         // Desativa todas as salas
-        foreach (var room in rooms)
+        foreach (var roomState in rooms)
         {
-            room.SetActive(false);
+            roomState.roomInstance.SetActive(false);
         }
 
         // Ativa a sala especificada
-        rooms[roomIndex].SetActive(true);
+        rooms[roomIndex].roomInstance.SetActive(true);
         currentRoomIndex = roomIndex;
     }
+
 
     /// <summary>
     /// Spawna o jogador na sala inicial ou em transições.
@@ -237,7 +351,7 @@ public class RoomManager : MonoBehaviour
             else
             {
                 // Spawn padrão no centro da sala
-                GameObject room = rooms[currentRoomIndex];
+                GameObject room = rooms[currentRoomIndex].roomInstance;
                 if (room != null)
                 {
                     spawnPosition = room.transform.position + playerSpawnOffset;
@@ -260,11 +374,12 @@ public class RoomManager : MonoBehaviour
         }
     }
 
+
     /// <summary>
     /// Reposiciona o jogador na nova sala usando o ponto de spawn associado à porta de saída.
     /// </summary>
     /// <param name="entranceDoor">Referência ao DoorTrigger pela qual o jogador está entrando.</param>
-    void RepositionPlayer(DoorTrigger entranceDoor)
+  void RepositionPlayer(DoorTrigger entranceDoor)
     {
         GameObject player = GameObject.FindWithTag("Player");
         if (player != null)
@@ -278,7 +393,7 @@ public class RoomManager : MonoBehaviour
             else
             {
                 // Spawn padrão no centro da sala
-                GameObject room = rooms[currentRoomIndex];
+                GameObject room = rooms[currentRoomIndex].roomInstance;
                 if (room != null)
                 {
                     spawnPosition = room.transform.position;
@@ -297,4 +412,5 @@ public class RoomManager : MonoBehaviour
             Debug.LogError("Jogador não encontrado na cena.");
         }
     }
+
 }

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2427006135694484426}
   - component: {fileID: -4190068143421732993}
   - component: {fileID: -2753514786416632209}
+  - component: {fileID: 7658711947551702672}
   m_Layer: 0
   m_Name: SnakePurple
   m_TagString: Untagged
@@ -180,3 +181,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3.853864, y: 4.0168843}
   m_EdgeRadius: 0
+--- !u!114 &7658711947551702672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 227180430676147513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ece6ee4ceeaf8fc489c1428d0cd92cae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomGrid: {fileID: 0}
+  speed: 2
+  pathUpdateInterval: 0.5

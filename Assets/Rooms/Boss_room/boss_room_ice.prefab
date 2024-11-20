@@ -59969,6 +59969,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8961522978596471269}
   - component: {fileID: 8654275413785734809}
+  - component: {fileID: 6987012885558652341}
   m_Layer: 0
   m_Name: boss_room_ice
   m_TagString: Untagged
@@ -60007,6 +60008,23 @@ Grid:
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0
+--- !u!114 &6987012885558652341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5994954086922193401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e6271201d5bb1f4ea0192ab376e8cf1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unwalkableMask:
+    serializedVersion: 2
+    m_Bits: 0
+  gridWorldSize: {x: 60, y: 50}
+  nodeRadius: 0.5
 --- !u!1 &7573827985633596938
 GameObject:
   m_ObjectHideFlags: 0

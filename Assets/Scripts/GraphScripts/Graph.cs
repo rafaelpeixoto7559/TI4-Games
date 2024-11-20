@@ -23,7 +23,7 @@ public class Graph
     private List<DoorDirection>[] roomUsedDoors;
     private GameObject[] rooms;
 
-    public Graph(int vertices, GameObject[] roomInstances)
+    public Graph(int vertices)
     {
         Vertices = vertices;
         Edges = new List<Edge>();
@@ -33,16 +33,17 @@ public class Graph
         roomRotations = new int[vertices];
         roomTypes = new RoomType[vertices];
         roomUsedDoors = new List<DoorDirection>[vertices];
-        rooms = roomInstances;
+        rooms = new GameObject[vertices]; // Inicializa o array com o tamanho correto
 
         for (int i = 0; i < vertices; i++)
         {
             adjacencyList[i] = new List<int>();
             roomUsedDoors[i] = new List<DoorDirection>();
             roomRotations[i] = -1;
-            roomMaxDegrees.Add(3); // Você pode ajustar isso conforme necessário
+            roomMaxDegrees.Add(3); // Ajuste conforme necessário
         }
     }
+
 
     public void AssignRoomTypes()
     {
