@@ -437,9 +437,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb5bf4a32e9b1b14185f41b0206806c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cyanText: {fileID: 0}
-  greenText: {fileID: 0}
-  purpleText: {fileID: 0}
 --- !u!1001 &4093254112590542598
 PrefabInstance:
   m_ObjectHideFlags: 0
