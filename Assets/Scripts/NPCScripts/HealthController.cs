@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HealthController : MonoBehaviour
 {
-    public int maxHealth = 3; // M�ximo de vidas
+    public int maxHealth = 3; // Maximo de vidas
     private int currentHealth;
     SpriteRenderer sr;
 
@@ -23,7 +23,7 @@ public class HealthController : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
     }
 
-    // Fun��o para reduzir a vida do jogador
+    // Funcao para reduzir a vida do jogador
     public void TakeDamage(int damage)
     {
         StartCoroutine(DamageEffectSequence(sr, Color.red, 0.3f, 0.0f));
