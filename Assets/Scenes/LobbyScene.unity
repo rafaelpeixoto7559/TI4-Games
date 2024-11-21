@@ -444,12 +444,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1763529692}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &171230684 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 711067876970755226, guid: bd49d3598e116e542861d0a772d0e0f8,
-    type: 3}
-  m_PrefabInstance: {fileID: 1763529692}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &171230685
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3440,31 +3434,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 3
---- !u!1 &1334304192 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3974211980830810717, guid: bd49d3598e116e542861d0a772d0e0f8,
-    type: 3}
-  m_PrefabInstance: {fileID: 1763529692}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1334304200
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1334304192}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d1759f7878bf564ebe4b47bc327704b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startTimeBtwAttack: 0.3
-  attackPos: {fileID: 171230684}
-  whatIsEnemy:
-    serializedVersion: 2
-    m_Bits: 16777216
-  attackRange: 1.5
-  damage: 1
 --- !u!1 &1403622262
 GameObject:
   m_ObjectHideFlags: 0
@@ -4587,10 +4556,6 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3974211980830810717, guid: bd49d3598e116e542861d0a772d0e0f8,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1334304200}
     - targetCorrespondingSourceObject: {fileID: 2902906888053767256, guid: bd49d3598e116e542861d0a772d0e0f8,
         type: 3}
       insertIndex: -1
