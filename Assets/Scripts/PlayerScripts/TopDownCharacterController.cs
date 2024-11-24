@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Cainos.PixelArtTopDown_Basic
@@ -7,114 +6,129 @@ namespace Cainos.PixelArtTopDown_Basic
     public class TopDownCharacterController : MonoBehaviour
     {
         public float moveSpeed = 3.5f;  // Velocidade de movimentação
-        public GameObject textBox;      // Arraste a caixa de texto aqui no Inspector
-        public GameObject interactIcon; // Arraste o ícone "F" (objeto Keyboard) aqui no Inspector
+        public float dashSpeed = 10f;   // Velocidade do Dash
+        public float dashDuration = 0.2f; // Duração do Dash
+        public float dashCooldown = 1f;   // Tempo de cooldown do Dash
+
+        public GameObject textBox;      // Caixa de texto no Inspector
+        public GameObject interactIcon; // Ícone de interação no Inspector
         public static int direction;
 
         private Animator animator;
         private Rigidbody2D rb;
         private Vector2 movement;
-        private bool isInInteractableZone = false;  // Flag para verificar se o player está na área de interação
+        private bool isInInteractableZone = false; // Flag para interação
+        private bool isDashing = false;           // Flag para o estado de dash
+        private float dashCooldownTimer = 0f;     // Timer de cooldown do dash
+
+        private PlayerSkills playerSkills;        // Referência ao script PlayerSkills
 
         private void Start()
         {
             animator = GetComponent<Animator>();
-            rb = GetComponent<Rigidbody2D>();  // Referência ao Rigidbody2D do Player
+            rb = GetComponent<Rigidbody2D>();
 
-            if (textBox != null)
+            playerSkills = FindObjectOfType<PlayerSkills>();
+
+            if (playerSkills == null)
             {
-                textBox.SetActive(false); // Inicialmente desativa a caixa de texto
+                Debug.LogError("PlayerSkills não encontrado! Certifique-se de que o script PlayerSkills está na cena.");
             }
 
-            if (interactIcon != null)
-            {
-                interactIcon.SetActive(false); // Inicialmente desativa o ícone de interação
-            }
+            if (textBox != null) textBox.SetActive(false);
+            if (interactIcon != null) interactIcon.SetActive(false);
         }
 
         private void Update()
         {
-            // Capturar a entrada do teclado para as direções
-            movement.x = Input.GetAxisRaw("Horizontal");  // Eixo X (A/D ou Setas Esquerda/Direita)
-            movement.y = Input.GetAxisRaw("Vertical");    // Eixo Y (W/S ou Setas Cima/Baixo)
+            // Atualiza o cooldown do dash
+            if (dashCooldownTimer > 0)
+            {
+                dashCooldownTimer -= Time.deltaTime;
+            }
+
+            // Captura a entrada do teclado para as direções
+            movement.x = Input.GetAxisRaw("Horizontal");
+            movement.y = Input.GetAxisRaw("Vertical");
 
             // Configuração do Animator com base na direção
-            if (movement.x < 0)
-            {
-                animator.SetInteger("Direction", 3);  // Esquerda
-                direction = 3;
-            }
-            else if (movement.x > 0)
-            {
-                animator.SetInteger("Direction", 2);  // Direita
-                direction = 2;
-            }
-            if (movement.y > 0)
-            {
-                animator.SetInteger("Direction", 1);  // Cima
-                direction = 1;
-            }
-            else if (movement.y < 0)
-            {
-                animator.SetInteger("Direction", 0);  // Baixo
-                direction = 0;
-            }
+            if (movement.x < 0) direction = 3;
+            else if (movement.x > 0) direction = 2;
+            else if (movement.y > 0) direction = 1;
+            else if (movement.y < 0) direction = 0;
 
-            // Normaliza a direção para evitar movimento diagonal mais rápido
-            movement.Normalize();
-
-            // Define se o personagem está se movendo
+            animator.SetInteger("Direction", direction);
             animator.SetBool("IsMoving", movement.magnitude > 0);
 
-            // Verifica se o jogador está na área interativa e pressionou a tecla "F"
+            // Verifica se o jogador pode usar o dash
+            if (playerSkills != null && playerSkills.hasDash && Input.GetKeyDown(KeyCode.LeftShift) && dashCooldownTimer <= 0 && !isDashing)
+            {
+                StartCoroutine(PerformDash());
+            }
+
+            // Interação
             if (isInInteractableZone && Input.GetKeyDown(KeyCode.F))
             {
-                if (textBox != null)
-                {
-                    // Alterna a visibilidade da caixa de texto
-                    textBox.SetActive(!textBox.activeSelf);
-                }
+                if (textBox != null) textBox.SetActive(!textBox.activeSelf);
             }
         }
 
         private void FixedUpdate()
         {
-            // Movimentar o player com base nas entradas de teclado e velocidade
-            rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+            if (!isDashing)
+            {
+                rb.MovePosition(rb.position + movement.normalized * moveSpeed * Time.fixedDeltaTime);
+            }
+        }
+
+        private IEnumerator PerformDash()
+        {
+            isDashing = true;
+
+            // Captura a direção do dash baseada no input atual
+            Vector2 dashDirection = movement.normalized;
+            if (dashDirection == Vector2.zero) // Se não houver input, usa a última direção conhecida
+            {
+                dashDirection = GetDirectionVector();
+            }
+
+            rb.velocity = dashDirection * dashSpeed; // Aplica a velocidade do dash
+
+            yield return new WaitForSeconds(dashDuration);
+
+            rb.velocity = Vector2.zero;
+            isDashing = false;
+            dashCooldownTimer = dashCooldown;
+        }
+
+        private Vector2 GetDirectionVector()
+        {
+            switch (direction)
+            {
+                case 0: return Vector2.down;
+                case 1: return Vector2.up;
+                case 2: return Vector2.right;
+                case 3: return Vector2.left;
+                default: return Vector2.zero;
+            }
         }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            // Verifica se o player entrou na área de interação
             if (other.CompareTag("Interactable"))
             {
                 isInInteractableZone = true;
-
-                // Ativa o ícone de interação (o "F" acima da cabeça)
-                if (interactIcon != null)
-                {
-                    interactIcon.SetActive(true);
-                }
+                if (interactIcon != null) interactIcon.SetActive(true);
             }
         }
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            // Verifica se o player saiu da área de interação
             if (other.CompareTag("Interactable"))
             {
                 isInInteractableZone = false;
-
-                // Desativa o ícone de interação e a caixa de texto
-                if (interactIcon != null)
-                {
-                    interactIcon.SetActive(false);
-                }
-
-                if (textBox != null)
-                {
-                    textBox.SetActive(false);
-                }
+                if (interactIcon != null) interactIcon.SetActive(false);
+                if (textBox != null) textBox.SetActive(false);
             }
         }
     }

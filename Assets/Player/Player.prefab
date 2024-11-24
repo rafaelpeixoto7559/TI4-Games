@@ -225,7 +225,7 @@ GameObject:
   - component: {fileID: 1641918046256705016}
   - component: {fileID: 1098140261348384195}
   - component: {fileID: 3786531218443022806}
-  - component: {fileID: 5390487419838845248}
+  - component: {fileID: -3532476876735083724}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -409,6 +409,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 3
+  dashSpeed: 10
+  dashDuration: 0.2
+  dashCooldown: 1
   textBox: {fileID: 0}
   interactIcon: {fileID: 735226258700446640}
 --- !u!114 &1641918046256705016
@@ -458,7 +461,7 @@ MonoBehaviour:
     m_Bits: 16777216
   attackRange: 1.5
   damage: 1
---- !u!114 &5390487419838845248
+--- !u!114 &-3532476876735083724
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -467,10 +470,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 3974211980830810717}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 533989673c2f3b44da7a4bd2596967bc, type: 3}
+  m_Script: {fileID: 11500000, guid: 124b2912775e02c4894ac5412469a17a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 3
+  hasDash: 1
+  hasDoubleJump: 0
+  hasShield: 0
 --- !u!1001 &4093254112590542598
 PrefabInstance:
   m_ObjectHideFlags: 0
