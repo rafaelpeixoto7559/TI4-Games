@@ -141,7 +141,7 @@ GameObject:
   - component: {fileID: 6105441300991717268}
   - component: {fileID: 2121133289486717037}
   - component: {fileID: 4572728940404312429}
-  m_Layer: 0
+  m_Layer: 25
   m_Name: Colliders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4094,7 +4094,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unwalkableMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 33554432
   gridWorldSize: {x: 40, y: 40}
   nodeRadius: 0.5
 --- !u!114 &8756534329045786413

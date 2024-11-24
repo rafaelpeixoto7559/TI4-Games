@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 73454335525980212}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 11.44, y: -5.81, z: -0.16444443}
+  m_LocalPosition: {x: 10.1, y: -10.2, z: -0.16444443}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -56739,7 +56739,7 @@ GameObject:
   - component: {fileID: 6105441300991717268}
   - component: {fileID: 2121133289486717037}
   - component: {fileID: 6191883269863811388}
-  m_Layer: 0
+  m_Layer: 25
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59867,6 +59867,7 @@ GameObject:
   - component: {fileID: 8961522978596471269}
   - component: {fileID: 8654275413785734809}
   - component: {fileID: 7424829956078595669}
+  - component: {fileID: 2848003099468622211}
   m_Layer: 0
   m_Name: boss_room_grass
   m_TagString: Untagged
@@ -59883,7 +59884,7 @@ Transform:
   m_GameObject: {fileID: 5994954086922193401}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.26, y: -2.55, z: 0}
+  m_LocalPosition: {x: -10.1, y: 3.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -59919,9 +59920,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unwalkableMask:
     serializedVersion: 2
-    m_Bits: 8388608
-  gridWorldSize: {x: 60, y: 60}
+    m_Bits: 33554432
+  gridWorldSize: {x: 40, y: 40}
   nodeRadius: 0.5
+--- !u!114 &2848003099468622211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5994954086922193401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84235bc3ccf92a04f817fd03ff3dfdc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPrefabs: []
+  minEnemies: 1
+  maxEnemies: 1
+  spawnArea: {fileID: 0}
+  roomGrid: {fileID: 0}
 --- !u!1 &7573827985633596938
 GameObject:
   m_ObjectHideFlags: 0

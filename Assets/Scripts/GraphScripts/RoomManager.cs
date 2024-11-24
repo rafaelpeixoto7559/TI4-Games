@@ -161,11 +161,24 @@ public class RoomManager : MonoBehaviour
         {
             RoomType roomType = graph.roomTypes[i];
             GameObject roomPrefab = roomPrefabs[(int)roomType];
+
+            if (roomPrefab == null)
+            {
+                Debug.LogError($"roomPrefab para RoomType {roomType} é nulo. Certifique-se de que todos os prefabs estão atribuídos.");
+                continue;
+            }
+
             GameObject roomInstance = Instantiate(roomPrefab);
             roomInstance.name = $"Room_{i}";
 
             // Desativa a sala imediatamente após a instanciação
             roomInstance.SetActive(false);
+
+            // Verifica se o RoomController está presente
+            if (roomInstance.GetComponent<RoomController>() == null)
+            {
+                Debug.LogError($"RoomController não encontrado no prefab {roomPrefab.name}. Certifique-se de que o componente está anexado.");
+            }
 
             // Cria o estado da sala e adiciona à lista
             RoomState roomState = new RoomState(roomInstance);

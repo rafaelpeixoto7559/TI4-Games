@@ -8,7 +8,7 @@ public class EnemyAI : MonoBehaviour
     private int currentPathIndex;
     public RoomGrid roomGrid; // Variável pública para receber o RoomGrid
     public float speed = 5f;
-    public float pathUpdateInterval = 0.5f; // Intervalo para atualizar o caminho
+    public float pathUpdateInterval = 0.2f; // Intervalo para atualizar o caminho
 
     private float pathUpdateTimer = 0f;
 
@@ -42,77 +42,75 @@ public class EnemyAI : MonoBehaviour
     }
 
 
-   void FindPath()
+    void FindPath()
     {
         if (roomGrid == null)
             return;
 
+        roomGrid.ResetNodes();
+
         Node startNode = roomGrid.NodeFromWorldPoint(transform.position);
         Node targetNode = roomGrid.NodeFromWorldPoint(target.position);
 
-        if (!startNode.walkable)
+        if (!startNode.walkable || !targetNode.walkable)
         {
-            Debug.LogError("Nó inicial não é caminhável.");
-            return;
-        }
+            if (!startNode.walkable)
+            {
+                Debug.LogError("Nó inicial não é caminhável.");
+            }
 
-        if (!targetNode.walkable)
-        {
-            Debug.LogError("Nó de destino não é caminhável.");
+            if (!targetNode.walkable)
+            {
+                Debug.LogError("Nó de destino não é caminhável.");
+            }
             return;
         }
 
         List<Node> openSet = new List<Node>();
         HashSet<Node> closedSet = new HashSet<Node>();
+
+        startNode.gCost = 0;
+        startNode.hCost = GetDistance(startNode, targetNode);
+
         openSet.Add(startNode);
 
         while (openSet.Count > 0)
         {
+            // Ordena o openSet com base no fCost
+            openSet.Sort((nodeA, nodeB) => nodeA.fCost.CompareTo(nodeB.fCost));
+
             Node currentNode = openSet[0];
-
-            // Encontra o nó com o menor fCost
-            for (int i = 1; i < openSet.Count; i++)
-            {
-                if (openSet[i].fCost < currentNode.fCost ||
-                (openSet[i].fCost == currentNode.fCost && openSet[i].hCost < currentNode.hCost))
-                {
-                    currentNode = openSet[i];
-                }
-            }
-
-            openSet.Remove(currentNode);
+            openSet.RemoveAt(0);
             closedSet.Add(currentNode);
 
-            // Se chegamos ao destino
             if (currentNode == targetNode)
             {
                 RetracePath(startNode, targetNode);
                 return;
             }
 
-            // Avalia os vizinhos
             foreach (Node neighbour in roomGrid.GetNeighbours(currentNode))
             {
                 if (!neighbour.walkable || closedSet.Contains(neighbour))
                     continue;
 
-                int newMovementCostToNeighbour = currentNode.gCost + GetDistance(currentNode, neighbour);
+                int tentativeGCost = currentNode.gCost + GetDistance(currentNode, neighbour);
 
-                if (newMovementCostToNeighbour < neighbour.gCost || !openSet.Contains(neighbour))
+                if (tentativeGCost < neighbour.gCost)
                 {
-                    neighbour.gCost = newMovementCostToNeighbour;
+                    neighbour.gCost = tentativeGCost;
                     neighbour.hCost = GetDistance(neighbour, targetNode);
                     neighbour.parent = currentNode;
 
                     if (!openSet.Contains(neighbour))
+                    {
                         openSet.Add(neighbour);
+                    }
                 }
             }
         }
-
-        // Se não encontramos um caminho
-        Debug.LogWarning("Caminho não encontrado.");
     }
+
 
     void RetracePath(Node startNode, Node endNode)
     {
@@ -148,8 +146,7 @@ public class EnemyAI : MonoBehaviour
         int dstX = Mathf.Abs(nodeA.gridPosition.x - nodeB.gridPosition.x);
         int dstY = Mathf.Abs(nodeA.gridPosition.y - nodeB.gridPosition.y);
 
-        if (dstX > dstY)
-            return 14 * dstY + 10 * (dstX - dstY);
-        return 14 * dstX + 10 * (dstY - dstX);
+        return 10 * (dstX + dstY); // Usando distância Manhattan
     }
+
 }

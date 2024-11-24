@@ -9,13 +9,46 @@ public class RoomGrid : MonoBehaviour
 
     Node[,] grid;
 
+    Bounds combinedBounds; // Bounds combinados dos colliders
+
     float nodeDiameter;
     int gridSizeX, gridSizeY;
 
     void Awake()
     {
+        // Calcula os bounds combinados de todos os Collider2D nos filhos da sala
+        Collider2D[] colliders = GetComponentsInChildren<Collider2D>();
+        if (colliders.Length > 0)
+        {
+            combinedBounds = colliders[0].bounds;
+            for (int i = 1; i < colliders.Length; i++)
+            {
+                combinedBounds.Encapsulate(colliders[i].bounds);
+            }
+            gridWorldSize = new Vector2(combinedBounds.size.x, combinedBounds.size.y);
+        }
+        else
+        {
+            Debug.LogError("Nenhum Collider2D encontrado nos filhos da sala. Certifique-se de que os Tilemaps têm Colliders.");
+            return;
+        }
+
         CreateGrid();
     }
+
+    public void ResetNodes()
+    {
+        if (grid == null)
+            return;
+
+        foreach (Node node in grid)
+        {
+            node.gCost = int.MaxValue;
+            node.hCost = 0;
+            node.parent = null;
+        }
+    }
+
 
     void CreateGrid()
     {
@@ -36,25 +69,27 @@ public class RoomGrid : MonoBehaviour
         }
 
         grid = new Node[gridSizeX, gridSizeY];
+
+        // Posição do canto inferior esquerdo da grade
+        Vector3 worldBottomLeft = combinedBounds.min;
+
         for (int x = 0; x < gridSizeX; x++)
         {
             for (int y = 0; y < gridSizeY; y++)
             {
                 // Calcular a posição no mundo para este nó
-                float worldX = transform.position.x - gridWorldSize.x / 2 + x * nodeDiameter + nodeRadius;
-                float worldY = transform.position.y - gridWorldSize.y / 2 + y * nodeDiameter + nodeRadius;
+                float worldX = worldBottomLeft.x + x * nodeDiameter + nodeRadius;
+                float worldY = worldBottomLeft.y + y * nodeDiameter + nodeRadius;
                 Vector3 worldPoint = new Vector3(worldX, worldY, 0);
 
                 // Determinar se este nó é caminhável (não há obstáculos)
-                bool walkable = !(Physics2D.OverlapCircle(worldPoint, nodeRadius, unwalkableMask));
+                bool walkable = !Physics2D.OverlapPoint(worldPoint, unwalkableMask);
 
                 // Criar o nó e adicioná-lo à grade
                 grid[x, y] = new Node(walkable, worldPoint, x, y);
             }
         }
     }
-
-
 
     public Node NodeFromWorldPoint(Vector3 worldPosition)
     {
@@ -64,8 +99,8 @@ public class RoomGrid : MonoBehaviour
             return null;
         }
 
-        float percentX = (worldPosition.x - (transform.position.x - gridWorldSize.x / 2)) / gridWorldSize.x;
-        float percentY = (worldPosition.y - (transform.position.y - gridWorldSize.y / 2)) / gridWorldSize.y;
+        float percentX = (worldPosition.x - combinedBounds.min.x) / gridWorldSize.x;
+        float percentY = (worldPosition.y - combinedBounds.min.y) / gridWorldSize.y;
 
         percentX = Mathf.Clamp01(percentX);
         percentY = Mathf.Clamp01(percentY);
@@ -117,7 +152,7 @@ public class RoomGrid : MonoBehaviour
 
     void OnDrawGizmos()
     {
-        Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, gridWorldSize.y, 1));
+        Gizmos.DrawWireCube(combinedBounds.center, new Vector3(gridWorldSize.x, gridWorldSize.y, 1));
 
         if (grid != null)
         {
