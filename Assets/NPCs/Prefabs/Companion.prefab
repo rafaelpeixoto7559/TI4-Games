@@ -148,3 +148,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 3
+  textBox: {fileID: 0}
+  interactIcon: {fileID: 0}

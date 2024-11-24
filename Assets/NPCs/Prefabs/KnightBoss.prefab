@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 8118354019080724751}
   - component: {fileID: -1997635459484835485}
   - component: {fileID: -4056840325119434448}
+  - component: {fileID: 7271034936072297693}
+  - component: {fileID: 7582300781728825815}
   m_Layer: 0
   m_Name: KnightBoss
   m_TagString: Untagged
@@ -134,3 +136,31 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &7271034936072297693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4535409052156707395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 533989673c2f3b44da7a4bd2596967bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 3
+--- !u!114 &7582300781728825815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4535409052156707395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ece6ee4ceeaf8fc489c1428d0cd92cae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomGrid: {fileID: 0}
+  speed: 5
+  pathUpdateInterval: 0.5
