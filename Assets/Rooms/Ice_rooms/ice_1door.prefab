@@ -38717,7 +38717,7 @@ Transform:
   m_GameObject: {fileID: 5994954086922193401}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -4.65, y: 0.56, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -38755,7 +38755,7 @@ MonoBehaviour:
   unwalkableMask:
     serializedVersion: 2
     m_Bits: 33554432
-  gridWorldSize: {x: 40, y: 40}
+  gridWorldSize: {x: 50, y: 50}
   nodeRadius: 0.5
 --- !u!114 &8930998295211117607
 MonoBehaviour:
