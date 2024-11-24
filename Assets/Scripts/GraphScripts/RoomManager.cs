@@ -7,12 +7,6 @@ public class RoomManager : MonoBehaviour
     // Singleton Instance
     public static RoomManager Instance { get; private set; }
 
-    [Header("Enemy Settings")]
-    public GameObject[] enemyPrefabs; // Array de prefabs de inimigos
-    public int minEnemiesPerRoom = 1; // Mínimo de inimigos por sala
-    public int maxEnemiesPerRoom = 5; // Máximo de inimigos por sala
-
-
     [Header("Room Prefabs")]
     public GameObject room1Prefab;  // Sala com 1 porta
     public GameObject room2Prefab;  // Sala com 2 portas
@@ -184,11 +178,7 @@ public class RoomManager : MonoBehaviour
 
 
 
-    /// <summary>
-    /// Transita para a sala especificada, posicionando o jogador no ponto de spawn associado à porta de saída.
-    /// </summary>
-    /// <param name="roomIndex">Índice da sala para a qual transitar.</param>
-    /// <param name="entranceDoor">Referência ao DoorTrigger pela qual o jogador está entrando.</param>
+    // Dentro da classe RoomManager
     public void GoToRoom(int roomIndex, DoorTrigger entranceDoor)
     {
         if (roomIndex == currentRoomIndex)
@@ -197,10 +187,10 @@ public class RoomManager : MonoBehaviour
         Debug.Log($"Transitando da Sala {currentRoomIndex} para a Sala {roomIndex} via Porta {entranceDoor.doorDirection}");
 
         // Desativa a sala atual
-        rooms[currentRoomIndex].roomInstance.SetActive(false);
+        rooms[currentRoomIndex].roomInstance.GetComponent<RoomController>().DeactivateRoom();
 
         // Ativa a nova sala
-        rooms[roomIndex].roomInstance.SetActive(true);
+        rooms[roomIndex].roomInstance.GetComponent<RoomController>().ActivateRoom();
 
         // Atualiza o índice da sala atual
         currentRoomIndex = roomIndex;
@@ -208,82 +198,7 @@ public class RoomManager : MonoBehaviour
         // Reposiciona o jogador na nova sala usando o ponto de spawn associado à porta de saída
         RepositionPlayer(entranceDoor);
 
-        // Verifica se a sala já foi visitada
-        if (!rooms[roomIndex].isVisited)
-        {
-            SpawnEnemiesInRoom(roomIndex);
-            rooms[roomIndex].isVisited = true; // Marca a sala como visitada
-        }
-
-        // Verifica se entrou na sala do boss e troca a música
-        if (roomIndex == totalRooms - 1)  // O último índice é a sala do boss
-        {
-            Debug.Log("Entrou na sala do Boss. Trocando a música.");
-            if (MusicManager.GetInstance() != null)
-            {
-                MusicManager.GetInstance().PlayMusic(bossMusicClip);  // Toca a música do boss
-            }
-        }
-    }
-
-    void SpawnEnemiesInRoom(int roomIndex)
-    {
-        // Obtenha o GameObject da sala atual
-        GameObject roomInstance = rooms[roomIndex].roomInstance;
-
-        // Certifique-se de que o roomInstance não é nulo
-        if (roomInstance == null)
-        {
-            Debug.LogError($"RoomInstance para o índice {roomIndex} é nulo.");
-            return;
-        }
-
-        // Obtenha o SpawnArea da sala
-        Transform spawnArea = roomInstance.transform.Find("SpawnArea");
-
-        // Verifique se o SpawnArea existe
-        if (spawnArea == null)
-        {
-            Debug.LogError($"SpawnArea não encontrado na sala {roomInstance.name}.");
-            return;
-        }
-
-        // Obtenha o RoomGrid da sala
-        RoomGrid roomGrid = roomInstance.GetComponent<RoomGrid>();
-        if (roomGrid == null)
-        {
-            Debug.LogError($"RoomGrid não encontrado na sala {roomInstance.name}.");
-            return;
-        }
-
-        // Determine o número de inimigos a serem spawnados nesta sala
-        int enemyCount = Random.Range(minEnemiesPerRoom, maxEnemiesPerRoom + 1);
-
-        for (int i = 0; i < enemyCount; i++)
-        {
-            // Calcule a posição de spawn dentro do SpawnArea
-            Vector3 spawnPosition = GetRandomPositionInArea(spawnArea);
-
-            // Selecione um prefab de inimigo aleatório
-            GameObject enemyPrefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
-
-            // Instancie o inimigo
-            GameObject enemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
-
-            // Atribua o RoomGrid ao EnemyAI
-            EnemyAI enemyAI = enemy.GetComponent<EnemyAI>();
-            if (enemyAI != null)
-            {
-                enemyAI.roomGrid = roomGrid;
-            }
-            else
-            {
-                Debug.LogError("EnemyPrefab não tem o componente EnemyAI.");
-            }
-
-            // Opcional: ajuste o nome do inimigo para facilitar a identificação na Hierarchy
-            enemy.name = $"Enemy_{roomIndex}_{enemy.GetInstanceID()}";
-        }
+        // A sala é responsável por spawnar os inimigos na ativação
     }
 
 

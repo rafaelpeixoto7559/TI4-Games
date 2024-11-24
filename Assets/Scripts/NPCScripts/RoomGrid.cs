@@ -92,38 +92,40 @@ public class RoomGrid : MonoBehaviour
     {
         List<Node> neighbours = new List<Node>();
 
-        for (int x = -1; x <= 1; x++)
+        // Define os deslocamentos para cima, baixo, esquerda e direita
+        int[,] directions = new int[,]
         {
-            for (int y = -1; y <= 1; y++)
+            { 0, 1 },  // Cima
+            { 1, 0 },  // Direita
+            { 0, -1 }, // Baixo
+            { -1, 0 }  // Esquerda
+        };
+
+        for (int i = 0; i < directions.GetLength(0); i++)
+        {
+            int checkX = node.gridPosition.x + directions[i, 0];
+            int checkY = node.gridPosition.y + directions[i, 1];
+
+            if (checkX >= 0 && checkX < gridSizeX && checkY >= 0 && checkY < gridSizeY)
             {
-                // Ignora o próprio nó
-                if (x == 0 && y == 0)
-                    continue;
-
-                int checkX = node.gridPosition.x + x;
-                int checkY = node.gridPosition.y + y;
-
-                if (checkX >= 0 && checkX < gridSizeX && checkY >= 0 && checkY < gridSizeY)
-                {
-                    neighbours.Add(grid[checkX, checkY]);
-                }
+                neighbours.Add(grid[checkX, checkY]);
             }
         }
 
         return neighbours;
     }
-    
-    // void OnDrawGizmos()
-    // {
-    //     Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, gridWorldSize.y, 1));
 
-    //     if (grid != null)
-    //     {
-    //         foreach (Node n in grid)
-    //         {
-    //             Gizmos.color = (n.walkable) ? Color.white : Color.red;
-    //             Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter - 0.1f));
-    //         }
-    //     }
-    // }
+    void OnDrawGizmos()
+    {
+        Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, gridWorldSize.y, 1));
+
+        if (grid != null)
+        {
+            foreach (Node n in grid)
+            {
+                Gizmos.color = (n.walkable) ? Color.white : Color.red;
+                Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter - 0.1f));
+            }
+        }
+    }
 }

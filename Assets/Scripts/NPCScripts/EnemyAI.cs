@@ -42,13 +42,25 @@ public class EnemyAI : MonoBehaviour
     }
 
 
-    void FindPath()
+   void FindPath()
     {
         if (roomGrid == null)
             return;
 
         Node startNode = roomGrid.NodeFromWorldPoint(transform.position);
         Node targetNode = roomGrid.NodeFromWorldPoint(target.position);
+
+        if (!startNode.walkable)
+        {
+            Debug.LogError("Nó inicial não é caminhável.");
+            return;
+        }
+
+        if (!targetNode.walkable)
+        {
+            Debug.LogError("Nó de destino não é caminhável.");
+            return;
+        }
 
         List<Node> openSet = new List<Node>();
         HashSet<Node> closedSet = new HashSet<Node>();
@@ -62,7 +74,7 @@ public class EnemyAI : MonoBehaviour
             for (int i = 1; i < openSet.Count; i++)
             {
                 if (openSet[i].fCost < currentNode.fCost ||
-                   (openSet[i].fCost == currentNode.fCost && openSet[i].hCost < currentNode.hCost))
+                (openSet[i].fCost == currentNode.fCost && openSet[i].hCost < currentNode.hCost))
                 {
                     currentNode = openSet[i];
                 }
@@ -97,6 +109,9 @@ public class EnemyAI : MonoBehaviour
                 }
             }
         }
+
+        // Se não encontramos um caminho
+        Debug.LogWarning("Caminho não encontrado.");
     }
 
     void RetracePath(Node startNode, Node endNode)

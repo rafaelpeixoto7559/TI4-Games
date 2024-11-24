@@ -4039,6 +4039,7 @@ GameObject:
   - component: {fileID: 8961522978596471269}
   - component: {fileID: 8654275413785734809}
   - component: {fileID: 7719465985619610212}
+  - component: {fileID: 8756534329045786413}
   m_Layer: 0
   m_Name: grass_3door
   m_TagString: Untagged
@@ -4096,6 +4097,24 @@ MonoBehaviour:
     m_Bits: 0
   gridWorldSize: {x: 40, y: 40}
   nodeRadius: 0.5
+--- !u!114 &8756534329045786413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5994954086922193401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84235bc3ccf92a04f817fd03ff3dfdc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPrefabs:
+  - {fileID: 227180430676147513, guid: 6b851d65ca30fc34ab2643ee372ea369, type: 3}
+  minEnemies: 1
+  maxEnemies: 5
+  spawnArea: {fileID: 0}
+  roomGrid: {fileID: 0}
 --- !u!1 &6856416831397083010
 GameObject:
   m_ObjectHideFlags: 0
