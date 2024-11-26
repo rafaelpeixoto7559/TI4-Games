@@ -1094,7 +1094,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &371602192
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1202,12 +1202,12 @@ MonoBehaviour:
   dashCostCyan: 10
   dashCostGreen: 5
   dashCostPurple: 0
-  doubleJumpCostCyan: 15
-  doubleJumpCostGreen: 10
-  doubleJumpCostPurple: 5
-  shieldCostCyan: 20
-  shieldCostGreen: 15
-  shieldCostPurple: 10
+  HeartCostCyan: 15
+  HeartCostGreen: 10
+  HeartCostPurple: 5
+  AttackCostCyan: 20
+  AttackCostGreen: 15
+  AttackCostPurple: 10
 --- !u!1 &372919859
 GameObject:
   m_ObjectHideFlags: 0
@@ -1484,7 +1484,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -782926486, guid: 60f7e207df2d6b04083bfda71d4a00bc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 16ef5565b7ef9ca4c82b75803921b9b4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1768,19 +1768,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 488418156}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 371602196}
-        m_TargetAssemblyTypeName: SkillShop, Assembly-CSharp
-        m_MethodName: BuyDash
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &488418156
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3694,19 +3682,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 921621660}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 371602196}
-        m_TargetAssemblyTypeName: SkillShop, Assembly-CSharp
-        m_MethodName: BuyDash
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &921621660
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4228,7 +4204,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 371602196}
         m_TargetAssemblyTypeName: SkillShop, Assembly-CSharp
-        m_MethodName: BuyDash
+        m_MethodName: BuyHeart
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4333,7 +4309,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -782926486, guid: 60f7e207df2d6b04083bfda71d4a00bc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 12bfbee39775e094e8b10afaa60768e8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4669,7 +4645,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -782926486, guid: 60f7e207df2d6b04083bfda71d4a00bc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 16ef5565b7ef9ca4c82b75803921b9b4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5196,7 +5172,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -782926486, guid: 60f7e207df2d6b04083bfda71d4a00bc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 16ef5565b7ef9ca4c82b75803921b9b4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -7113,7 +7089,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 371602196}
         m_TargetAssemblyTypeName: SkillShop, Assembly-CSharp
-        m_MethodName: BuyDash
+        m_MethodName: BuyAttack
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7408,19 +7384,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1996993450}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 371602196}
-        m_TargetAssemblyTypeName: SkillShop, Assembly-CSharp
-        m_MethodName: BuyDash
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1996993450
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8163,7 +8127,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -782926486, guid: 60f7e207df2d6b04083bfda71d4a00bc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1ec30ba068fae7840b557eaddea5188d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
