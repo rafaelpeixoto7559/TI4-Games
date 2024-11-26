@@ -16,13 +16,13 @@ public class SkillShop : MonoBehaviour
     public int dashCostGreen = 5;
     public int dashCostPurple = 0;
 
-    public int doubleJumpCostCyan = 15;
-    public int doubleJumpCostGreen = 10;
-    public int doubleJumpCostPurple = 5;
+    public int HeartCostCyan = 15;
+    public int HeartCostGreen = 10;
+    public int HeartCostPurple = 5;
 
-    public int shieldCostCyan = 20;
-    public int shieldCostGreen = 15;
-    public int shieldCostPurple = 10;
+    public int AttackCostCyan = 20;
+    public int AttackCostGreen = 15;
+    public int AttackCostPurple = 10;
 
     // Referência aos contadores de itens
     private int cyanCount;
@@ -88,21 +88,21 @@ public class SkillShop : MonoBehaviour
     }
 
     // Função para comprar Pulo Duplo
-    public void BuyDoubleJump()
+    public void BuyHeart()
     {
-        if (player.hasDoubleJump)
+        if (player.hasHeart)
         {
             Debug.Log("Pulo Duplo já desbloqueado!");
             return; // Interrompe a execução
         }
 
-        if (cyanCount >= doubleJumpCostCyan && greenCount >= doubleJumpCostGreen && purpleCount >= doubleJumpCostPurple)
+        if (cyanCount >= HeartCostCyan && greenCount >= HeartCostGreen && purpleCount >= HeartCostPurple)
         {
-            cyanCount -= doubleJumpCostCyan;
-            greenCount -= doubleJumpCostGreen;
-            purpleCount -= doubleJumpCostPurple;
+            cyanCount -= HeartCostCyan;
+            greenCount -= HeartCostGreen;
+            purpleCount -= HeartCostPurple;
 
-            player.hasDoubleJump = true; // Desbloqueia a habilidade
+            player.hasHeart = true; // Desbloqueia a habilidade
             Debug.Log("Pulo Duplo desbloqueado!");
 
             UpdateUI();
@@ -114,21 +114,21 @@ public class SkillShop : MonoBehaviour
     }
 
     // Função para comprar Escudo
-    public void BuyShield()
+    public void BuyAttack()
     {
-        if (player.hasShield)
+        if (player.hasAttack)
         {
             Debug.Log("Escudo já desbloqueado!");
             return; // Interrompe a execução
         }
 
-        if (cyanCount >= shieldCostCyan && greenCount >= shieldCostGreen && purpleCount >= shieldCostPurple)
+        if (cyanCount >= AttackCostCyan && greenCount >= AttackCostGreen && purpleCount >= AttackCostPurple)
         {
-            cyanCount -= shieldCostCyan;
-            greenCount -= shieldCostGreen;
-            purpleCount -= shieldCostPurple;
+            cyanCount -= AttackCostCyan;
+            greenCount -= AttackCostGreen;
+            purpleCount -= AttackCostPurple;
 
-            player.hasShield = true; // Desbloqueia a habilidade
+            player.hasAttack = true; // Desbloqueia a habilidade
             Debug.Log("Escudo desbloqueado!");
 
             UpdateUI();
