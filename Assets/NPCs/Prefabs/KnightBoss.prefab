@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -4056840325119434448}
   - component: {fileID: 7271034936072297693}
   - component: {fileID: 7582300781728825815}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: KnightBoss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
