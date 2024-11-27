@@ -15,6 +15,10 @@ GameObject:
   - component: {fileID: -2753514786416632209}
   - component: {fileID: 629239671657345872}
   - component: {fileID: -444662933967941781}
+<<<<<<< HEAD
+  - component: {fileID: 5985574774244020886}
+=======
+>>>>>>> main
   m_Layer: 24
   m_Name: GhostPurple
   m_TagString: Enemy
@@ -118,7 +122,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 227180430676147513}
-  m_BodyType: 0
+  m_BodyType: 2
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -166,7 +170,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.01573133, y: -0.1030257}
@@ -189,7 +193,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 227180430676147513}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ece6ee4ceeaf8fc489c1428d0cd92cae, type: 3}
   m_Name: 
@@ -198,6 +202,19 @@ MonoBehaviour:
   speed: 5
   pathUpdateInterval: 0.5
 --- !u!114 &-444662933967941781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 227180430676147513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 533989673c2f3b44da7a4bd2596967bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 3
+--- !u!114 &5985574774244020886
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

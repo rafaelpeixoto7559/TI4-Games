@@ -42,9 +42,14 @@ public class SkillShop : MonoBehaviour
     }
     private void Start()
     {
-        // Inicializa os textos com os valores iniciais
-        UpdateUI();
+        // Carrega os valores salvos nos PlayerPrefs
+        int cyanCount = PlayerPrefs.GetInt("CyanCount", 0);
+        int greenCount = PlayerPrefs.GetInt("GreenCount", 0);
+        int purpleCount = PlayerPrefs.GetInt("PurpleCount", 0);
+
+        SetCounts(cyanCount, greenCount, purpleCount);
     }
+
 
     public void SetCounts(int cyan, int green, int purple)
     {
@@ -61,7 +66,7 @@ public class SkillShop : MonoBehaviour
         purpleText.text = purpleCount.ToString();
     }
 
-        // Função para comprar Dash
+    // Função para comprar Dash
     public void BuyDash()
     {
         if (player.hasDash)
@@ -79,7 +84,8 @@ public class SkillShop : MonoBehaviour
             player.hasDash = true; // Desbloqueia a habilidade
             Debug.Log("Dash desbloqueado!");
 
-            UpdateUI();
+            SaveCounts(); // Salva os valores nos PlayerPrefs
+            UpdateUI(); // Atualiza a UI
         }
         else
         {
@@ -105,7 +111,8 @@ public class SkillShop : MonoBehaviour
             player.hasHeart = true; // Desbloqueia a habilidade
             Debug.Log("Pulo Duplo desbloqueado!");
 
-            UpdateUI();
+            SaveCounts(); // Salva os valores nos PlayerPrefs
+            UpdateUI(); // Atualiza a UI
         }
         else
         {
@@ -131,11 +138,22 @@ public class SkillShop : MonoBehaviour
             player.hasAttack = true; // Desbloqueia a habilidade
             Debug.Log("Escudo desbloqueado!");
 
-            UpdateUI();
+            SaveCounts(); // Salva os valores nos PlayerPrefs
+            UpdateUI(); // Atualiza a UI
         }
         else
         {
             Debug.Log("Não há itens suficientes para comprar Escudo.");
         }
     }
+
+    // Função para salvar os contadores nos PlayerPrefs
+    private void SaveCounts()
+    {
+        PlayerPrefs.SetInt("CyanCount", cyanCount);
+        PlayerPrefs.SetInt("GreenCount", greenCount);
+        PlayerPrefs.SetInt("PurpleCount", purpleCount);
+        PlayerPrefs.Save();
+    }
+
 }
