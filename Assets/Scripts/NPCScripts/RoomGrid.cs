@@ -12,7 +12,7 @@ public class RoomGrid : MonoBehaviour
     Bounds combinedBounds; // Bounds combinados dos colliders
 
     float nodeDiameter;
-    int gridSizeX, gridSizeY;
+    int gridSizeX = 100, gridSizeY = 100;
 
     void Awake()
     {

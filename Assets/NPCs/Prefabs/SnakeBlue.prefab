@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -2753514786416632209}
   - component: {fileID: 451913743211123268}
   - component: {fileID: 1207533331401652524}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: SnakeBlue
   m_TagString: Enemy
   m_Icon: {fileID: 0}

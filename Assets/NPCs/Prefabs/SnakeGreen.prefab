@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -2753514786416632209}
   - component: {fileID: 2461509272212193780}
   - component: {fileID: 1585090488045999427}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: SnakeGreen
   m_TagString: Enemy
   m_Icon: {fileID: 0}
