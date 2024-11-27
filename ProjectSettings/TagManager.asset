@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Interactable
+  - Item
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -30,8 +32,8 @@ TagManager:
   - Layer 2
   - Layer 3
   - objetos
-  - 
-  - 
+  - Enemy
+  - Obstacles
   - 
   - 
   - 

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3846980802150376134}
   - component: {fileID: 2258357596987958606}
   - component: {fileID: 4922265713523425611}
+  - component: {fileID: 4870139339930547559}
   m_Layer: 5
   m_Name: HeartCheese
   m_TagString: Untagged
@@ -103,6 +104,21 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &4870139339930547559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1501030319069145146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64a4107067ebd6d41afd54db01d7e85f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cyanText: {fileID: 5085877655808269053}
+  greenText: {fileID: 5887698760657094559}
+  purpleText: {fileID: 5627744552668477578}
 --- !u!1 &4143795455349413407
 GameObject:
   m_ObjectHideFlags: 0
@@ -112,7 +128,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2468774919073996977}
-  - component: {fileID: 5024133907997270957}
   m_Layer: 0
   m_Name: Rock
   m_TagString: Untagged
@@ -136,20 +151,6 @@ Transform:
   - {fileID: 3322827240666737906}
   m_Father: {fileID: 7498862167859013527}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5024133907997270957
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4143795455349413407}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 265e79b67e672f3428bfb30e89742cc4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  coinText: {fileID: 5627744552668477578}
-  currentCoins: 1
 --- !u!1 &7729978747949075482
 GameObject:
   m_ObjectHideFlags: 0
@@ -193,7 +194,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6351733624156390704}
-  - component: {fileID: 8481690705441277980}
   m_Layer: 0
   m_Name: Ice
   m_TagString: Untagged
@@ -217,20 +217,6 @@ Transform:
   - {fileID: 2778831847085526661}
   m_Father: {fileID: 7498862167859013527}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8481690705441277980
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7976888125603306845}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 265e79b67e672f3428bfb30e89742cc4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  coinText: {fileID: 5085877655808269053}
-  currentCoins: 10
 --- !u!1 &7994324906928320509
 GameObject:
   m_ObjectHideFlags: 0
@@ -240,7 +226,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5336017356559493066}
-  - component: {fileID: 5728023381610410559}
   m_Layer: 0
   m_Name: Grass
   m_TagString: Untagged
@@ -264,20 +249,6 @@ Transform:
   - {fileID: 3580784790802420711}
   m_Father: {fileID: 7498862167859013527}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5728023381610410559
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7994324906928320509}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 265e79b67e672f3428bfb30e89742cc4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  coinText: {fileID: 5887698760657094559}
-  currentCoins: 20
 --- !u!1 &8482057622208177754
 GameObject:
   m_ObjectHideFlags: 0

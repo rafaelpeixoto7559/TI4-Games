@@ -12,6 +12,8 @@ public class RoomManager : MonoBehaviour
     public GameObject room2Prefab;  // Sala com 2 portas
     public GameObject room3Prefab;  // Sala com 3 portas
 
+    private GameObject[] roomInstances;
+
     [Header("Boss Room Prefab")]
     public GameObject bossRoomPrefab;
 
@@ -34,7 +36,7 @@ public class RoomManager : MonoBehaviour
     public Camera mainCamera; // Referência para a câmera principal
 
     private Graph graph;
-    private List<GameObject> rooms = new List<GameObject>();  // Lista de salas instanciadas
+    private List<RoomState> rooms = new List<RoomState>();  // Lista de estados das salas
 
     private int currentRoomIndex = 0;  // Índice da sala atual em que o jogador está
 
@@ -51,7 +53,7 @@ public class RoomManager : MonoBehaviour
         }
     }
 
-    void Start()
+   void Start()
     {
         roomPrefabs = new GameObject[4]; // Agora temos 4 tipos de salas
         roomPrefabs[(int)RoomType.Sala1] = room1Prefab;
@@ -71,16 +73,16 @@ public class RoomManager : MonoBehaviour
             }
         }
 
-        // Gera o grafo
-        InstantiateRooms(); // Instancia as salas primeiro
-
-        // Corrigido aqui: usando totalRooms
-        graph = new Graph(totalRooms, rooms.ToArray()); // Passa as salas instanciadas para o grafo
+        // Corrigido aqui: usando o array de roomInstances
+        graph = new Graph(totalRooms); // Passa as salas instanciadas para o grafo
         graph.GenerateConnectedGraph();
         graph.AssignRoomTypes();
+
         InstantiateRoomsWithTypes();
 
-        graph.UpdateRoomInstances(rooms.ToArray());
+        roomInstances = GetRoomInstancesArray();
+
+        graph.UpdateRoomInstances(roomInstances);
         // Alinha e conecta as portas
         graph.AlignAndConnectDoors(0); // Começa pela sala 0
 
@@ -131,6 +133,18 @@ public class RoomManager : MonoBehaviour
         }
     }
 
+    private GameObject[] GetRoomInstancesArray()
+    {
+        GameObject[] roomInstances = new GameObject[rooms.Count];
+        for (int i = 0; i < rooms.Count; i++)
+        {
+            roomInstances[i] = rooms[i].roomInstance; // Possível NullReferenceException
+        }
+        return roomInstances;
+    }
+
+
+
     void InstantiateRooms()
     {
         for (int i = 0; i < totalRooms; i++)
@@ -141,32 +155,43 @@ public class RoomManager : MonoBehaviour
 
     void InstantiateRoomsWithTypes()
     {
+        rooms.Clear(); // Limpa a lista antes de preenchê-la
+
         for (int i = 0; i < totalRooms; i++)
         {
             RoomType roomType = graph.roomTypes[i];
             GameObject roomPrefab = roomPrefabs[(int)roomType];
+
+            if (roomPrefab == null)
+            {
+                Debug.LogError($"roomPrefab para RoomType {roomType} é nulo. Certifique-se de que todos os prefabs estão atribuídos.");
+                continue;
+            }
+
             GameObject roomInstance = Instantiate(roomPrefab);
             roomInstance.name = $"Room_{i}";
 
             // Desativa a sala imediatamente após a instanciação
             roomInstance.SetActive(false);
 
-            // Verifica o número de DoorTriggers na sala
-            DoorTrigger[] doorTriggers = roomInstance.GetComponentsInChildren<DoorTrigger>(true);
-            Debug.Log($"Sala {i} ({roomType}) tem {doorTriggers.Length} portas.");
+            // Verifica se o RoomController está presente
+            if (roomInstance.GetComponent<RoomController>() == null)
+            {
+                Debug.LogError($"RoomController não encontrado no prefab {roomPrefab.name}. Certifique-se de que o componente está anexado.");
+            }
 
-            rooms[i] = roomInstance;
+            // Cria o estado da sala e adiciona à lista
+            RoomState roomState = new RoomState(roomInstance);
+            rooms.Add(roomState);
         }
     }
 
 
 
 
-    /// <summary>
-    /// Transita para a sala especificada, posicionando o jogador no ponto de spawn associado à porta de saída.
-    /// </summary>
-    /// <param name="roomIndex">Índice da sala para a qual transitar.</param>
-    /// <param name="entranceDoor">Referência ao DoorTrigger pela qual o jogador está entrando.</param>
+
+
+    // Dentro da classe RoomManager
     public void GoToRoom(int roomIndex, DoorTrigger entranceDoor)
     {
         if (roomIndex == currentRoomIndex)
@@ -175,10 +200,10 @@ public class RoomManager : MonoBehaviour
         Debug.Log($"Transitando da Sala {currentRoomIndex} para a Sala {roomIndex} via Porta {entranceDoor.doorDirection}");
 
         // Desativa a sala atual
-        rooms[currentRoomIndex].SetActive(false);
+        rooms[currentRoomIndex].roomInstance.GetComponent<RoomController>().DeactivateRoom();
 
         // Ativa a nova sala
-        rooms[roomIndex].SetActive(true);
+        rooms[roomIndex].roomInstance.GetComponent<RoomController>().ActivateRoom();
 
         // Atualiza o índice da sala atual
         currentRoomIndex = roomIndex;
@@ -186,30 +211,47 @@ public class RoomManager : MonoBehaviour
         // Reposiciona o jogador na nova sala usando o ponto de spawn associado à porta de saída
         RepositionPlayer(entranceDoor);
 
-        // Verifica se entrou na sala do boss e troca a música
-        if (roomIndex == totalRooms - 1)  // O último índice é a sala do boss
-        {
-            Debug.Log("Entrou na sala do Boss. Trocando a música.");
-            if (MusicManager.GetInstance() != null)
-            {
-                MusicManager.GetInstance().PlayMusic(bossMusicClip);  // Toca a música do boss
-            }
-        }
+        // A sala é responsável por spawnar os inimigos na ativação
     }
+
+
+
+    Vector3 GetRandomPositionInArea(Transform area)
+    {
+        // Supondo que o area tenha um Collider2D que define a área de spawn
+        Collider2D collider = area.GetComponent<Collider2D>();
+        if (collider == null)
+        {
+            Debug.LogError("SpawnArea não possui um Collider2D.");
+            return area.position;
+        }
+
+        Bounds bounds = collider.bounds;
+        float x = Random.Range(bounds.min.x, bounds.max.x);
+        float y = Random.Range(bounds.min.y, bounds.max.y);
+
+        return new Vector3(x, y, area.position.z);
+    }
+
+
+
+
+
 
     // Método para ativar apenas uma sala, desativando todas as outras
     void ShowRoom(int roomIndex)
     {
         // Desativa todas as salas
-        foreach (var room in rooms)
+        foreach (var roomState in rooms)
         {
-            room.SetActive(false);
+            roomState.roomInstance.SetActive(false);
         }
 
         // Ativa a sala especificada
-        rooms[roomIndex].SetActive(true);
+        rooms[roomIndex].roomInstance.SetActive(true);
         currentRoomIndex = roomIndex;
     }
+
 
     /// <summary>
     /// Spawna o jogador na sala inicial ou em transições.
@@ -237,7 +279,7 @@ public class RoomManager : MonoBehaviour
             else
             {
                 // Spawn padrão no centro da sala
-                GameObject room = rooms[currentRoomIndex];
+                GameObject room = rooms[currentRoomIndex].roomInstance;
                 if (room != null)
                 {
                     spawnPosition = room.transform.position + playerSpawnOffset;
@@ -260,11 +302,12 @@ public class RoomManager : MonoBehaviour
         }
     }
 
+
     /// <summary>
     /// Reposiciona o jogador na nova sala usando o ponto de spawn associado à porta de saída.
     /// </summary>
     /// <param name="entranceDoor">Referência ao DoorTrigger pela qual o jogador está entrando.</param>
-    void RepositionPlayer(DoorTrigger entranceDoor)
+  void RepositionPlayer(DoorTrigger entranceDoor)
     {
         GameObject player = GameObject.FindWithTag("Player");
         if (player != null)
@@ -278,7 +321,7 @@ public class RoomManager : MonoBehaviour
             else
             {
                 // Spawn padrão no centro da sala
-                GameObject room = rooms[currentRoomIndex];
+                GameObject room = rooms[currentRoomIndex].roomInstance;
                 if (room != null)
                 {
                     spawnPosition = room.transform.position;
@@ -297,4 +340,5 @@ public class RoomManager : MonoBehaviour
             Debug.LogError("Jogador não encontrado na cena.");
         }
     }
+
 }

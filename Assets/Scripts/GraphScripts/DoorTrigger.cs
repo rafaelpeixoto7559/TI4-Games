@@ -39,6 +39,8 @@ public class DoorTrigger : MonoBehaviour
         }
     }
 
+    // Dentro da classe DoorTrigger
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
@@ -46,7 +48,7 @@ public class DoorTrigger : MonoBehaviour
             if (connectedRoomIndex != -1 && connectedDoorTrigger != null)
             {
                 Debug.Log($"Player entrou pela porta {currentDirection} para a Sala {connectedRoomIndex}");
-                roomManager.GoToRoom(connectedRoomIndex, this); // Passa a própria porta como referência
+                roomManager.GoToRoom(connectedRoomIndex, this); // Aqui ocorre o erro
             }
             else
             {
@@ -54,6 +56,7 @@ public class DoorTrigger : MonoBehaviour
             }
         }
     }
+
 
     // Método para desenhar Gizmos no Editor
     void OnDrawGizmos()
