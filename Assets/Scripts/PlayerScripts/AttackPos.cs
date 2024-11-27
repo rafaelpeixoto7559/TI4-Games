@@ -10,7 +10,7 @@ public class AttackPos : MonoBehaviour
 
     void Start()
     {
-       Cainos.PixelArtTopDown_Basic.TopDownCharacterController.direction = 1;
+        Cainos.PixelArtTopDown_Basic.TopDownCharacterController.direction = 1;
     }
 
     // Update is called once per frame

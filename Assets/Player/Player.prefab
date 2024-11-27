@@ -292,7 +292,7 @@ SpriteRenderer:
   m_SortingLayerID: -105541197
   m_SortingLayer: 3
   m_SortingOrder: 1
-  m_Sprite: {fileID: -1896443108, guid: 9aa293d8c8e45cd47beb7c613c34f5a5, type: 3}
+  m_Sprite: {fileID: 249936313, guid: cda3d38854bc4414e89d7ffb6f5a74aa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -339,7 +339,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.04, y: 2.88}
+    oldSize: {x: 2.1875, y: 3.04375}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -454,7 +454,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d1759f7878bf564ebe4b47bc327704b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startTimeBtwAttack: 0.3
+  startTimeBtwAttack: 0.12
   attackPos: {fileID: 711067876970755226}
   whatIsEnemy:
     serializedVersion: 2
@@ -474,8 +474,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasDash: 1
-  hasDoubleJump: 0
-  hasShield: 0
+  hasHeart: 0
+  hasAttack: 0
 --- !u!1001 &4093254112590542598
 PrefabInstance:
   m_ObjectHideFlags: 0
