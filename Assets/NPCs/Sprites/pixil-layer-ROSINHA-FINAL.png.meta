@@ -1,0 +1,466 @@
+fileFormatVersion: 2
+guid: 900960cffd156c34abebbb2483587035
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: pixil-layer-ROSINHA-FINAL_0
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 2188
+        width: 483
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a75a103ba774aa0468ebd523ae6f9c80
+      internalID: 299433916
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-ROSINHA-FINAL_1
+      rect:
+        serializedVersion: 2
+        x: 798
+        y: 2179
+        width: 484
+        height: 563
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a8f426ddd6a83164eb5608f6c342b83b
+      internalID: 1850402117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-ROSINHA-FINAL_2
+      rect:
+        serializedVersion: 2
+        x: 1469
+        y: 2188
+        width: 483
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 430551aaec857ae4c8a674fbc107408d
+      internalID: -1311899894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-ROSINHA-FINAL_3
+      rect:
+        serializedVersion: 2
+        x: 2188
+        y: 2188
+        width: 483
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6361d58abe17e1444b25d098eeb90edb
+      internalID: -1543495089
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-ROSINHA-FINAL_4
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 1519
+        width: 484
+        height: 562
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 69827f5886a9592409de621dd85738e9
+      internalID: 1004179099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-ROSINHA-FINAL_5
+      rect:
+        serializedVersion: 2
+        x: 858
+        y: 1498
+        width: 484
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9434615ce706603488a28375089fb632
+      internalID: -1825989861
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-ROSINHA-FINAL_6
+      rect:
+        serializedVersion: 2
+        x: 1498
+        y: 1519
+        width: 484
+        height: 562
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 50f99e99b79ac2642b3ec083a21f1881
+      internalID: -307946262
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-ROSINHA-FINAL_7
+      rect:
+        serializedVersion: 2
+        x: 2138
+        y: 1508
+        width: 483
+        height: 563
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec8b2e1af6bc2df4396859f86c8e2bf3
+      internalID: -1129242216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-ROSINHA-FINAL_8
+      rect:
+        serializedVersion: 2
+        x: 189
+        y: 858
+        width: 482
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4393a0a344b367444ad79cf2e71e14b0
+      internalID: -817968502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-ROSINHA-FINAL_9
+      rect:
+        serializedVersion: 2
+        x: 829
+        y: 879
+        width: 483
+        height: 563
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f2628e5aa7d6ab24b9f2a9b17d3928f1
+      internalID: -2062676847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-ROSINHA-FINAL_10
+      rect:
+        serializedVersion: 2
+        x: 1469
+        y: 858
+        width: 483
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2003abb651af03440b638714a0b52c6b
+      internalID: 533443037
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-ROSINHA-FINAL_11
+      rect:
+        serializedVersion: 2
+        x: 2138
+        y: 858
+        width: 483
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d971912b432b8134eafef8616a1253c7
+      internalID: 133218621
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-ROSINHA-FINAL_12
+      rect:
+        serializedVersion: 2
+        x: 189
+        y: 138
+        width: 482
+        height: 564
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 170f885b4761e9d4d9f6601caf8dc15c
+      internalID: -1888820878
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-ROSINHA-FINAL_13
+      rect:
+        serializedVersion: 2
+        x: 898
+        y: 129
+        width: 483
+        height: 563
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83584c867605360448fc44838c9a8c20
+      internalID: -515301885
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-ROSINHA-FINAL_14
+      rect:
+        serializedVersion: 2
+        x: 1579
+        y: 129
+        width: 483
+        height: 563
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b768cac4a7adb34898bcdab24db55a0
+      internalID: 556593299
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pixil-layer-ROSINHA-FINAL_15
+      rect:
+        serializedVersion: 2
+        x: 2298
+        y: 129
+        width: 483
+        height: 563
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6ecde8f5497a3be48b0cd3486b9debb2
+      internalID: 91381620
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      pixil-layer-ROSINHA-FINAL_0: 299433916
+      pixil-layer-ROSINHA-FINAL_1: 1850402117
+      pixil-layer-ROSINHA-FINAL_10: 533443037
+      pixil-layer-ROSINHA-FINAL_11: 133218621
+      pixil-layer-ROSINHA-FINAL_12: -1888820878
+      pixil-layer-ROSINHA-FINAL_13: -515301885
+      pixil-layer-ROSINHA-FINAL_14: 556593299
+      pixil-layer-ROSINHA-FINAL_15: 91381620
+      pixil-layer-ROSINHA-FINAL_2: -1311899894
+      pixil-layer-ROSINHA-FINAL_3: -1543495089
+      pixil-layer-ROSINHA-FINAL_4: 1004179099
+      pixil-layer-ROSINHA-FINAL_5: -1825989861
+      pixil-layer-ROSINHA-FINAL_6: -307946262
+      pixil-layer-ROSINHA-FINAL_7: -1129242216
+      pixil-layer-ROSINHA-FINAL_8: -817968502
+      pixil-layer-ROSINHA-FINAL_9: -2062676847
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
