@@ -144,7 +144,6 @@ public class SkillShop : MonoBehaviour
         }
     }
 
-
     // Função para salvar os contadores nos PlayerPrefs
     private void SaveCounts()
     {
