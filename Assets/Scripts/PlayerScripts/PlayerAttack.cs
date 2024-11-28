@@ -6,11 +6,14 @@ public class PlayerAttack : MonoBehaviour{
 
     private float timeBtwAttack;
     public float startTimeBtwAttack;
+    private float RtimeBtwAttack;
+    public float RstartTimeBtwAttack;
 
     public Transform attackPos;
     public LayerMask whatIsEnemy;
     public float attackRange;
     public int damage;
+
 
     public static int direction;
 
@@ -23,6 +26,7 @@ public class PlayerAttack : MonoBehaviour{
 
     private void Update()
     {
+
         if(timeBtwAttack <= 0)
         {
             if (Input.GetKey(KeyCode.K))

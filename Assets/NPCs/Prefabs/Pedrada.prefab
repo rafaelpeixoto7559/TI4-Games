@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7271034936072297693}
   - component: {fileID: 7582300781728825815}
   m_Layer: 24
-  m_Name: KnightBoss
+  m_Name: Pedrada
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
